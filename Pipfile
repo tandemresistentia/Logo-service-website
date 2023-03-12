@@ -7,6 +7,12 @@ name = "pypi"
 psycopg2-binary = "*"
 psycopg2 = "*"
 django = "*"
+django-allauth = "*"
+whitenoise = "*"
+django-crispy-forms = "*"
+django-debug-toolbar = "*"
+crispy-bootstrap4 = "*"
+celery = "*"
 
 [dev-packages]
 
