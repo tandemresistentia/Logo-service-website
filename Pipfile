@@ -13,6 +13,9 @@ django-crispy-forms = "*"
 django-debug-toolbar = "*"
 crispy-bootstrap4 = "*"
 celery = "*"
+redis = "*"
+django-celery-results = "*"
+django-celery-beat = "*"
 
 [dev-packages]
 

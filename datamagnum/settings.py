@@ -58,7 +58,8 @@ INSTALLED_APPS = [
     'allauth.account', # new
     'debug_toolbar',
     'crispy_bootstrap4',
-
+    'django_celery_results',
+    'django_celery_beat',
     # Local
     'mainlobby.apps.MainlobbyConfig',
     'users.apps.UsersConfig', 
@@ -197,3 +198,25 @@ import socket
 hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
 INTERNAL_IPS = [ip[:-1] + "1" for ip in ips]
 
+
+# CELERY SETTINGS
+
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
+
+CELERY_RESULT_BACKEND = 'django-db'
+
+#CELERY BEAT
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+
+# SMTP Settings
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_USE_TLS = True
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER ='deathghoul41@gmail.com'
+EMAIL_HOST_PASSWORD = "25191298A!"
+DEFAULT_FROM_EMAIL = 'Celery <deathghoul41@gmail.com>'
