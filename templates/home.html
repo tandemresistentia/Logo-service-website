@@ -5,6 +5,9 @@
 
 {% block content %}
 <h1>Homepage</h1>
+<p>{{ status_data }}</p>
+<p>{{ get_data }}</p>
+<p>{{ json_data }}</p>
 <form class="form-inline mt-2 mt-md-0" action="{% url 'home' %}"
 method="get">
 <input name="q" class="form-control mr-sm-2" type="text" placeholder="Search"
