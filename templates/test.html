@@ -1,0 +1,77 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+<h1>Homepage</h1>
+<input type="button" name="answer1" value={{ type0 }} onclick="showDiv()" />
+<div id="welcomeDiv"  style="display: contents;" class="answer_list" > 
+  <ul>
+    <li>{{ price0 }}</li>
+    <li>{{ desc0 }}</li>
+    <li>{{ package_time0 }}</li>
+    <li>{{ package_row0 }}</li>
+    <li>{{ package_row3 }}</li>
+    <li>{{ package_row6 }}</li>
+    <li>{{ package_row9 }}</li>
+    <li>{{ package_row12 }}</li>
+  </ul>
+  <form action="/buypage/" method="POST">{% csrf_token %}
+    <input type="text" name="basic1" placeholder="Repeat" size=2>
+    <input type="submit" value="Save!">
+  </form>
+</div>
+
+<input type="button" name="answer2" value={{ type1 }} onclick="showDiv2()" />
+<div id="welcomeDiv2"  style="display:none;" class="answer_list" > 
+  <ul>
+    <li>{{ price1 }}</li>
+    <li>{{ desc1 }}</li>
+    <li>{{ package_time1 }}</li>
+    <li>{{ package_row1 }}</li>
+    <li>{{ package_row4 }}</li>
+    <li>{{ package_row7 }}</li>
+    <li>{{ package_row10 }}</li>
+    <li>{{ package_row13 }}</li>
+  </ul>
+  <form action="/buypage/" method="POST">{% csrf_token %}
+    <input type="text" name="standard1" placeholder="Repeat" size=2>
+    <input type="submit" value="Save!">
+  </form>
+</div>
+
+<input type="button" name="answer3" value={{ type2 }} onclick="showDiv3()" />
+<div id="welcomeDiv3"  style="display:none;" class="answer_list" > 
+  <ul>
+    <li>{{ price2 }}</li>
+    <li>{{ desc2 }}</li>
+    <li>{{ package_time2 }}</li>
+    <li>{{ package_row2 }}</li>
+    <li>{{ package_row5 }}</li>
+    <li>{{ package_row8 }}</li>
+    <li>{{ package_row11 }}</li>
+    <li>{{ package_row14 }}</li>
+  </ul>
+  <form action="/buypage/" method="POST">{% csrf_token %}
+    <input type="text" name="premium1" placeholder="Repeat" size=2>
+    <input type="submit" value="Save!">
+  </form>
+</div>
+
+
+
+<form class="form-inline mt-2 mt-md-0" action="{% url 'home' %}"
+method="get">
+<input name="q" class="form-control mr-sm-2" type="text" placeholder="Search"
+aria-label="Search">
+</form>
+{% if user.is_authenticated %}
+Hi {{ user.email }}!
+<p><a href="{% url 'account_logout' %}">Log Out</a></p>
+{% else %}
+<p>You are not logged in</p>
+<a href="{% url 'account_login' %}">Log In</a>
+<a href="{% url 'account_signup' %}">Sign Up</a>
+{% endif %}
+{% endblock content %}

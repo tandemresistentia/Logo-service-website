@@ -23,7 +23,7 @@ ENVIRONMENT = 'development'
 SECRET_KEY = 'yx24%_&s-nvd6jcr@b8vk%le1r^-%$7^t&z&@q9qa9yz--y-v1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = int(os.environ.get('DEBUG', default=0))
+DEBUG = True
 
 ALLOWED_HOSTS = ['damp-dawn-44130.herokuapp.com/', 'localhost', '127.0.0.1']
 
