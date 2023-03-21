@@ -3,7 +3,10 @@ from .tasks import test
 from celery.result import AsyncResult
 # Create your views here.
 import json
-
+import stripe
+from django.conf import settings # new
+from django.http.response import JsonResponse,HttpResponse # new
+from django.views.decorators.csrf import csrf_exempt # new
 
 def home(request):
     with open('json_data.json', encoding='utf-8') as json_file:
@@ -53,3 +56,32 @@ def home(request):
     return render(request,'home.html',variable)
 def about(request):
     return render(request,'about.html')
+
+#success view
+def success(request):
+ return render(request,'success.html')
+
+ #cancel view
+def cancel(request):
+ return render(request,'cancel.html')
+
+stripe.api_key = settings.STRIPE_PRIVATE_KEY
+from django.urls import reverse
+
+@csrf_exempt
+def checkout(request):
+    session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=[{
+            'price': 'price_1McVfZIQDkGdDbUYT2e4DkjX',
+            'quantity': 1,
+        }],
+        mode='payment',
+        success_url=request.build_absolute_uri(reverse('success')) + '?session_id={CHECKOUT_SESSION_ID}',
+        cancel_url=request.build_absolute_uri(reverse('cancel')),
+    )
+
+    return JsonResponse({
+        'session_id' : session.id,
+        'stripe_public_key' : settings.STRIPE_PUBLIC_KEY
+    })

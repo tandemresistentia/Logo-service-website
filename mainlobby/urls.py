@@ -1,8 +1,10 @@
 from django.urls import path
-
-from . import views
+from mainlobby import views
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('about/', views.home, name='about'),
+    path('about/', views.about, name='about'),
+    path('success/', views.success,name='success'),
+    path('cancel/', views.cancel,name='cancel'),
+    path('checkout/', views.checkout, name='checkout'),
 ]

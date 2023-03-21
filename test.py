@@ -50,16 +50,33 @@ class Data():
         self.group = self.data.find_elements(By.CLASS_NAME, "package-type")[0]
         self.groupInfo1 = self.data.find_elements(By.CLASS_NAME, "description")[0]
         scones = {}
-        for i in range(3):
-            scones['type'+str(i)] = self.group.find_elements(By.CLASS_NAME, "type")[i].text
-            price_data = self.group.find_elements(By.CLASS_NAME, "price")[i].text
-            price_number = price_data.split('€',1)[1]
-            price_number = float(price_data) * 2
-            price_number = str(price_data)+'€'
-            scones['price'+str(i)] = str(price_data)
-            scones['desc'+str(i)] = self.groupInfo1.find_elements(By.TAG_NAME, "td")[i+1].text
-        
+        try:
+            for i in range(3):
+                scones['type'+str(i)] = self.group.find_elements(By.CLASS_NAME, "type")[i].text
+                price_data = self.group.find_elements(By.CLASS_NAME, "price")[i].text
+                price_number = price_data.split('$',1)[1]
+                try:
+                    price_number = float(price_data) * 2
+                except:
+                    price_number = int(price_data) * 2
 
+                price_number = str(price_data)+'$'
+                scones['price'+str(i)] = str(price_data)
+                scones['desc'+str(i)] = self.groupInfo1.find_elements(By.TAG_NAME, "td")[i+1].text
+        except:
+            for i in range(3):
+                scones['type'+str(i)] = self.group.find_elements(By.CLASS_NAME, "type")[i].text
+                price_data = self.group.find_elements(By.CLASS_NAME, "price")[i].text
+                price_number = price_data.split('€',1)[1]
+                try:
+                    price_number = float(price_data) * 2
+                except:
+                    price_number = int(price_data) * 2
+
+                price_number = str(price_data)+'€'
+                scones['price'+str(i)] = str(price_data)
+                scones['desc'+str(i)] = self.groupInfo1.find_elements(By.TAG_NAME, "td")[i+1].text
+        
         e = 0
         for i in range(21):
             try:
