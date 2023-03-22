@@ -1,12 +1,10 @@
 from django.shortcuts import render
 from .tasks import test
 from celery.result import AsyncResult
-# Create your views here.
-import json
-import stripe
 from django.conf import settings # new
 from django.http.response import JsonResponse,HttpResponse # new
 from django.views.decorators.csrf import csrf_exempt # new
+import json
 
 def home(request):
     with open('json_data.json', encoding='utf-8') as json_file:
@@ -54,6 +52,8 @@ def home(request):
       'revisions':dicts['revisions'],
       }
     return render(request,'home.html',variable)
+
+
 def about(request):
     return render(request,'about.html')
 
@@ -65,23 +65,102 @@ def success(request):
 def cancel(request):
  return render(request,'cancel.html')
 
-stripe.api_key = settings.STRIPE_PRIVATE_KEY
-from django.urls import reverse
+    # Add additional fields you want to add to the customer profile
+import stripe
+stripe.api_key = settings.STRIPE_API_KEY
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from .models import CustomerProfile
+from django.contrib.auth.models import User
 
+@receiver(post_save, sender=User)
+def _on_update_user(sender, instance, created, **kwargs):
+
+    if created:  # If a new user is created
+
+        # Create Stripe user
+        customer = stripe.Customer.create(
+            email=instance.email,
+            name=instance.get_full_name(),
+            metadata={
+                'user_id': instance.pk,
+                'username': instance.username
+            },
+            description='Created from Django',
+        )
+
+        # Create profile
+        profile = CustomerProfile.objects.create(user=instance, stripe_customer_id=customer.id)
+        profile.save()
+
+
+PRODUCTS_STRIPE_PRICING_ID = {
+    'product_regular': 'price_1McVfZIQDkGdDbUYT2e4DkjX',
+    'product_pro': 'price_1McVfmIQDkGdDbUYUDncBjza',
+    'product_platinum': 'price_1McVgSIQDkGdDbUYgQK63TLr',
+}
+
+from django.core.exceptions import SuspiciousOperation
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
+import stripe
+stripe.api_key = settings.STRIPE_API_KEY
+from django.views.decorators.http import require_POST
+from django.http import JsonResponse, HttpResponse
+
+@login_required
 @csrf_exempt
-def checkout(request):
-    session = stripe.checkout.Session.create(
-        payment_method_types=['card'],
-        line_items=[{
-            'price': 'price_1McVfZIQDkGdDbUYT2e4DkjX',
-            'quantity': 1,
-        }],
-        mode='payment',
-        success_url=request.build_absolute_uri(reverse('success')) + '?session_id={CHECKOUT_SESSION_ID}',
-        cancel_url=request.build_absolute_uri(reverse('cancel')),
-    )
+def create_stripe_checkout_session(request, product_name):
 
-    return JsonResponse({
-        'session_id' : session.id,
-        'stripe_public_key' : settings.STRIPE_PUBLIC_KEY
-    })
+    try:
+
+        checkout_session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            metadata={'product_name': product_name, },
+            line_items=[
+                {'price': PRODUCTS_STRIPE_PRICING_ID[product_name], 
+                 'quantity': 1, },
+            ],
+            mode='payment',
+            success_url='http://localhost:8000/success.html',
+           cancel_url='http://localhost:8000/cancel.html',        )
+
+        return JsonResponse({'id': checkout_session.id})
+
+    except Exception as e:
+        print(e)
+        raise SuspiciousOperation(e)
+    
+
+@require_POST
+@csrf_exempt
+def stripe_webhook_paid_endpoint(request):
+
+    payload = request.body
+    sig_header = request.META['HTTP_STRIPE_SIGNATURE']
+    event = None
+
+    # Try to validate and create a local instance of the event
+    try:
+        event = stripe.Webhook.construct_event(payload, sig_header, settings.STRIPE_SIGNING_SECRET)
+    except ValueError as e:
+        # Invalid payload
+        return SuspiciousOperation(e)
+    except stripe.error.SignatureVerificationError as e:
+        # Invalid signature
+        return SuspiciousOperation(e)
+
+  # Handle the checkout.session.completed event
+    if event['type'] == 'checkout.session.completed':
+        checkout_session = event['data']['object']
+        # Make sure is already paid and not delayed
+        if checkout_session.payment_status == "paid":
+            _handle_successful_payment(checkout_session)
+
+    # Passed signature verification
+    return HttpResponse(status=200)
+
+def _handle_successful_payment(checkout_session):
+    # Define what to do after the user has successfully paid
+    pass

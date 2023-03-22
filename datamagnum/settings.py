@@ -62,8 +62,8 @@ INSTALLED_APPS = [
     'django_celery_beat',
     # Local
     'mainlobby.apps.MainlobbyConfig',
-    'users.apps.UsersConfig', 
-]
+    'users.apps.UsersConfig',
+]   
 
 # django-allauth config
 LOGIN_REDIRECT_URL = 'home'
@@ -219,5 +219,5 @@ DEFAULT_FROM_EMAIL = 'Celery <deathghoul41@gmail.com>'
 
 # Stripe
 STRIPE_PUBLIC_KEY = 'pk_test_51Mbox2IQDkGdDbUYvfjf4ItvBDZI4ZMA5Ic6XJnytAEZG1mwkR7J0Jc1Zo2xpDMBX4FqKi1aANHsQa8eFgRbpldt00JYckHaYg'
-STRIPE_PRIVATE_KEY = 'sk_test_51Mbox2IQDkGdDbUYJBAuX34hyASJqjpvYYHyDGo7nOyWLG5jlvctEGMhxbGW7oVfYlwVoljqMo0MoLfhTNP0MhKM00My1cOU7W'
-STRIPE_ENDPOINT_SECRET = 'whsec_0d01203d265aaaa06ec4d6de76105a45f84e35cb5f2da3103bfa0479509295b9'
+STRIPE_API_KEY = 'sk_test_51Mbox2IQDkGdDbUYJBAuX34hyASJqjpvYYHyDGo7nOyWLG5jlvctEGMhxbGW7oVfYlwVoljqMo0MoLfhTNP0MhKM00My1cOU7W'
+STRIPE_SIGNING_SECRET = 'whsec_0d01203d265aaaa06ec4d6de76105a45f84e35cb5f2da3103bfa0479509295b9'

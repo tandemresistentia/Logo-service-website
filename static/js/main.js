@@ -1,20 +1,38 @@
-const buy_now_button = document.querySelector('#buy_now_btn')
+var stripe = Stripe('pk_test_51Mbox2IQDkGdDbUYvfjf4ItvBDZI4ZMA5Ic6XJnytAEZG1mwkR7J0Jc1Zo2xpDMBX4FqKi1aANHsQa8eFgRbpldt00JYckHaYg');
 
-buy_now_button.addEventListener('click', event => {   
-  fetch('/checkout/')
-  .then((result) => { return result.json() })
-  .then((data) => {
-    var stripe = Stripe(data.stripe_public_key);
+// Gets all buy buttons
+var buttons = document.getElementsByClassName('buy-button');
+for (i = 0; i < buttons.length; i++) {
 
-    stripe.redirectToCheckout({
-    // Make the id field from the Checkout Session creation API response
-    // available to this file, so you can provide it as parameter here
-    // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
-      sessionId: data.session_id
-    }).then(function (result) {
+  // for every button we will add a Stripe POST request action
+  buttons[i].addEventListener('click', function(event) {
+    var targetElement = event.target || event.srcElement;
+    var productName =  targetElement.value;
+    console.log('Buying: ' + productName);
+
+    // Our endpoint with the chosen product name
+    var url = '/create-checkout-session/' + productName
+
+    // Create a new Checkout Session
+    fetch(url, {method: 'POST',})
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(session) {
+      return stripe.redirectToCheckout({ sessionId: session.id });
+    })
+    .then(function(result) {
       // If `redirectToCheckout` fails due to a browser or network
-      // error, display the localized error message to your customer
-      // using `result.error.message`.
+      // error, you should display the localized error message to your
+      // customer using `error.message`.
+      if (result.error) {
+        alert(result.error.message);
+      }
+    })
+    .catch(function(error) {
+      console.error('Error:', error);
     });
-  }) 
-})
+
+  });
+
+}
