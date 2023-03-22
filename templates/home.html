@@ -87,7 +87,7 @@
           <li>{{ package_row19 }}</li>
         </ul>
         {% if user.is_authenticated %}
-        <button id="buy_regular_button" type="button" class="buy-button btn btn-lg btn-block btn-outline-primary" value="product_pro">Buy Pro!</button>
+        <button id="buy_pro_button" type="button" class="buy-button btn btn-lg btn-block btn-outline-primary" value="product_pro">Buy Pro!</button>
         {% else %} 
         <a class="buy-button btn btn-lg btn-block btn-outline-primary" href="{% url 'account_signup' %}">Buy Pro!</a>
         {% endif %}

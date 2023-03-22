@@ -96,8 +96,14 @@ def _on_update_user(sender, instance, created, **kwargs):
 
 PRODUCTS_STRIPE_PRICING_ID = {
     'product_regular': 'price_1McVfZIQDkGdDbUYT2e4DkjX',
-    'product_pro': 'price_1McVfmIQDkGdDbUYUDncBjza',
+    'product_pro': 'price_1MoY0DIQDkGdDbUY7B7Q3dnX',
     'product_platinum': 'price_1McVgSIQDkGdDbUYgQK63TLr',
+}
+
+PRODUCTS_STRIPE_PRODUCTS_ID = {
+    'product_regular': 'prod_NNGBiaHKfU1wzw',
+    'product_pro': 'prod_NNGCYC1hpTNBjQ',
+    'product_platinum': 'prod_NNGCiIjFqFlFTx',
 }
 
 from django.core.exceptions import SuspiciousOperation
@@ -114,17 +120,39 @@ from django.http import JsonResponse, HttpResponse
 def create_stripe_checkout_session(request, product_name):
 
     try:
+        with open('json_data.json', encoding='utf-8') as json_file:
+            dicts = json.load(json_file)
+        price0 = float(dicts['price0']) * 100
+        price1 = float(dicts['price1']) * 100
+        price2 = float(dicts['price2']) * 100
+        price0 = int(price0)
+        price1 = int(price1)
+        price2 = int(price2)
+        PRODUCTS_STRIPE_NOW_PRICE = {
+            'product_regular': price0,
+            'product_pro': price1,
+            'product_platinum':  price2,
+        }
 
+
+        stripe.Price.create(
+        unit_amount=PRODUCTS_STRIPE_NOW_PRICE[product_name],
+        currency="eur",
+        product=PRODUCTS_STRIPE_PRODUCTS_ID[product_name],
+        )
+
+        Data =(stripe.Price.list(limit=3))
+        Data =(Data['data'][0])
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=['card'],
             metadata={'product_name': product_name, },
             line_items=[
-                {'price': PRODUCTS_STRIPE_PRICING_ID[product_name], 
+                {'price': Data['id'], 
                  'quantity': 1, },
             ],
             mode='payment',
-            success_url='http://localhost:8000/success.html',
-           cancel_url='http://localhost:8000/cancel.html',        )
+            success_url='http://localhost:8000/success',
+           cancel_url='http://localhost:8000/cancel',        )
 
         return JsonResponse({'id': checkout_session.id})
 
