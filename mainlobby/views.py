@@ -66,32 +66,8 @@ def cancel(request):
  return render(request,'cancel.html')
 
     # Add additional fields you want to add to the customer profile
-import stripe
-stripe.api_key = settings.STRIPE_API_KEY
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-from .models import CustomerProfile
-from django.contrib.auth.models import User
 
-@receiver(post_save, sender=User)
-def _on_update_user(sender, instance, created, **kwargs):
 
-    if created:  # If a new user is created
-
-        # Create Stripe user
-        customer = stripe.Customer.create(
-            email=instance.email,
-            name=instance.get_full_name(),
-            metadata={
-                'user_id': instance.pk,
-                'username': instance.username
-            },
-            description='Created from Django',
-        )
-
-        # Create profile
-        profile = CustomerProfile.objects.create(user=instance, stripe_customer_id=customer.id)
-        profile.save()
 
 
 PRODUCTS_STRIPE_PRICING_ID = {
@@ -114,6 +90,8 @@ import stripe
 stripe.api_key = settings.STRIPE_API_KEY
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse, HttpResponse
+from .models import Product
+from django.core.mail import send_mail
 
 @login_required
 @csrf_exempt
@@ -145,11 +123,13 @@ def create_stripe_checkout_session(request, product_name):
         Data =(Data['data'][0])
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=['card'],
-            metadata={'product_name': product_name, },
+            metadata={'product_name': product_name},
             line_items=[
                 {'price': Data['id'], 
                  'quantity': 1, },
             ],
+            
+
             mode='payment',
             success_url='http://localhost:8000/success',
            cancel_url='http://localhost:8000/cancel',        )
@@ -160,7 +140,7 @@ def create_stripe_checkout_session(request, product_name):
         print(e)
         raise SuspiciousOperation(e)
     
-
+import random
 @require_POST
 @csrf_exempt
 def stripe_webhook_paid_endpoint(request):
@@ -186,9 +166,21 @@ def stripe_webhook_paid_endpoint(request):
         if checkout_session.payment_status == "paid":
             _handle_successful_payment(checkout_session)
 
+
     # Passed signature verification
     return HttpResponse(status=200)
 
 def _handle_successful_payment(checkout_session):
     # Define what to do after the user has successfully paid
-    test.delay()
+    print(checkout_session)
+    session = checkout_session
+
+    customer_email = session["customer_details"]["email"]
+    product_id = random.getrandbits(128)
+
+    send_mail(
+        subject="Here is your product",
+        message=f"Thanks for your purchase. Here is the product you ordered. The URL is ",
+        recipient_list=[customer_email],
+        from_email="matt@test.com"
+    )

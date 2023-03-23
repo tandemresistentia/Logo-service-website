@@ -67,6 +67,7 @@ werkzeug = "==2.2.2"
 wsproto = "==1.2.0"
 undetected-chromedriver = "*"
 pillow = "*"
+uuid = "*"
 
 [dev-packages]
 

@@ -1,18 +1,14 @@
-
 from django.db import models
 
-from datamagnum import settings  # <- Change to match your main app name
-User = settings.AUTH_USER_MODEL
-import stripe
-stripe.api_key = settings.STRIPE_API_KEY
-class CustomerProfile(models.Model):
 
-    user = models.OneToOneField(
-        User,
-        on_delete=models.CASCADE,
-        primary_key=True,
-    )
+class Product(models.Model):
+    name = models.CharField(max_length=100)
+    price = models.IntegerField(default=0)  # cents
+    file = models.FileField(upload_to="product_files/", blank=True, null=True)
+    url = models.URLField()
+
+    def __str__(self):
+        return self.name
     
-    stripe_customer_id = models.CharField(max_length=120)
-
-    # Add additional fields you want to add to the customer profile
+    def get_display_price(self):
+        return "{0:.2f}".format(self.price / 100)

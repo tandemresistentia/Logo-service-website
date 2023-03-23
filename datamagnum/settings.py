@@ -209,13 +209,7 @@ CELERY_RESULT_BACKEND = 'django-db'
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
 # SMTP Settings
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_USE_TLS = True
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = 587
-EMAIL_HOST_USER ='deathghoul41@gmail.com'
-EMAIL_HOST_PASSWORD = "25191298A!"
-DEFAULT_FROM_EMAIL = 'Celery <deathghoul41@gmail.com>'
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # Stripe
 STRIPE_PUBLIC_KEY = 'pk_test_51Mbox2IQDkGdDbUYvfjf4ItvBDZI4ZMA5Ic6XJnytAEZG1mwkR7J0Jc1Zo2xpDMBX4FqKi1aANHsQa8eFgRbpldt00JYckHaYg'
