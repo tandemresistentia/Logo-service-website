@@ -191,4 +191,4 @@ def stripe_webhook_paid_endpoint(request):
 
 def _handle_successful_payment(checkout_session):
     # Define what to do after the user has successfully paid
-    pass
+    test.delay()
