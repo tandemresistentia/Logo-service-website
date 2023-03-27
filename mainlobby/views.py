@@ -5,8 +5,16 @@ from django.conf import settings # new
 from django.http.response import JsonResponse,HttpResponse # new
 from django.views.decorators.csrf import csrf_exempt # new
 import json
+from django.contrib.auth import get_user_model
 
+
+user_email = None
+user = None
 def home(request):
+    global user_email
+    user_email = request.user.email
+    global user
+    user = request.user
     with open('json_data.json', encoding='utf-8') as json_file:
         dicts = json.load(json_file)
     variable = {
@@ -51,23 +59,19 @@ def home(request):
       
       'revisions':dicts['revisions'],
       }
+    
+
     return render(request,'home.html',variable)
-
-
-def about(request):
-    return render(request,'about.html')
 
 #success view
 def success(request):
- return render(request,'success.html')
+ return render(request,'orders/success.html')
 
  #cancel view
 def cancel(request):
- return render(request,'cancel.html')
+ return render(request,'orders/cancel.html')
 
     # Add additional fields you want to add to the customer profile
-
-
 
 
 PRODUCTS_STRIPE_PRICING_ID = {
@@ -98,6 +102,7 @@ from django.core.mail import send_mail
 def create_stripe_checkout_session(request, product_name):
 
     try:
+
         with open('json_data.json', encoding='utf-8') as json_file:
             dicts = json.load(json_file)
         price0 = float(dicts['price0']) * 100
@@ -123,6 +128,7 @@ def create_stripe_checkout_session(request, product_name):
         Data =(Data['data'][0])
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=['card'],
+            customer_email=user_email,
             metadata={'product_name': product_name},
             line_items=[
                 {'price': Data['id'], 
@@ -139,7 +145,7 @@ def create_stripe_checkout_session(request, product_name):
     except Exception as e:
         print(e)
         raise SuspiciousOperation(e)
-    
+import datetime
 import random
 @require_POST
 @csrf_exempt
@@ -170,17 +176,31 @@ def stripe_webhook_paid_endpoint(request):
     # Passed signature verification
     return HttpResponse(status=200)
 
+from django.shortcuts import redirect
+from .models import Order
 def _handle_successful_payment(checkout_session):
     # Define what to do after the user has successfully paid
+    neworder = Order()
+    neworder.user = user
+    date_created = datetime.datetime.now()
+    complete = False
+    transaction_id = checkout_session["id"]
+    neworder.save()
+
+
     print(checkout_session)
     session = checkout_session
-
-    customer_email = session["customer_details"]["email"]
-    product_id = random.getrandbits(128)
-
+    transaction_id = session["id"]
     send_mail(
-        subject="Here is your product",
-        message=f"Thanks for your purchase. Here is the product you ordered. The URL is ",
-        recipient_list=[customer_email],
-        from_email="matt@test.com"
+        subject='Here is your product',
+        message='Thanks for your purchase',
+        recipient_list=[user_email],
+        from_email='test@email.com'
     )
+
+def my_dashboard(request):
+    return render(request, 'user/dashboard.html')
+
+def order_list(request):
+    orders = Order.objects.filter(user=request.user).order_by('-id')
+    return render(request, 'user/order_list.html',{'orders':orders})
