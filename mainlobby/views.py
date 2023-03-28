@@ -182,9 +182,9 @@ def _handle_successful_payment(checkout_session):
     # Define what to do after the user has successfully paid
     neworder = Order()
     neworder.user = user
-    date_created = datetime.datetime.now()
-    complete = False
-    transaction_id = checkout_session["id"]
+    neworder.date_created = datetime.datetime.now()
+    neworder.complete = 'Pending'
+    neworder.transaction_id = checkout_session["id"]
     neworder.save()
 
 
@@ -204,3 +204,14 @@ def my_dashboard(request):
 def order_list(request):
     orders = Order.objects.filter(user=request.user).order_by('-id')
     return render(request, 'user/order_list.html',{'orders':orders})
+
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
+
+
+def download(request, document_id):
+    document = get_object_or_404(Order, pk=document_id)
+    response = HttpResponse(document.document, content_type='image/jpeg')
+    response['Content-Disposition'] = f'attachment; filename="{document.document.name}"'
+    return response
+

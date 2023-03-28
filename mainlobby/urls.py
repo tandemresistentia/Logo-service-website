@@ -1,6 +1,6 @@
 from django.urls import path
 from mainlobby import views
-from .views import create_stripe_checkout_session,stripe_webhook_paid_endpoint
+from .views import *
 urlpatterns = [
     path('', views.home, name='home'),
     path('success/', views.success,name='success'),
@@ -10,4 +10,5 @@ urlpatterns = [
     #User
     path('dashboard/',views.my_dashboard,name='dashboard'),
     path('orders/',views.order_list,name='orders'),
+    path('documents/<int:document_id>/', views.download, name='download'),
 ]
