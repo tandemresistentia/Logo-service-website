@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .tasks import test
 from celery.result import AsyncResult
 from django.conf import settings # new
-from django.http.response import JsonResponse,HttpResponse # new
+from django.http.response import JsonResponse,HttpResponse,FileResponse # new
 from django.views.decorators.csrf import csrf_exempt # new
 import json
 from django.contrib.auth import get_user_model
@@ -205,13 +205,5 @@ def order_list(request):
     orders = Order.objects.filter(user=request.user).order_by('-id')
     return render(request, 'user/order_list.html',{'orders':orders})
 
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
 
-
-def download(request, document_id):
-    document = get_object_or_404(Order, pk=document_id)
-    response = HttpResponse(document.document, content_type='image/jpeg')
-    response['Content-Disposition'] = f'attachment; filename="{document.document.name}"'
-    return response
 

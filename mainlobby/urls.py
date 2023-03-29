@@ -1,6 +1,11 @@
 from django.urls import path
 from mainlobby import views
 from .views import *
+from .models import Order
+from django_downloadview import ObjectDownloadView
+from django.conf.urls.static import static
+
+
 urlpatterns = [
     path('', views.home, name='home'),
     path('success/', views.success,name='success'),
@@ -10,5 +15,6 @@ urlpatterns = [
     #User
     path('dashboard/',views.my_dashboard,name='dashboard'),
     path('orders/',views.order_list,name='orders'),
-    path('documents/<int:document_id>/', views.download, name='download'),
 ]
+urlpatterns += static(settings.MEDIA_URL,
+                              document_root=settings.MEDIA_ROOT)

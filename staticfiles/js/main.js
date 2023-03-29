@@ -14,9 +14,7 @@ for (i = 0; i < buttons.length; i++) {
     var url = '/create-checkout-session/' + productName
 
     // Create a new Checkout Session
-    fetch(url, {
-      method: 'POST',
-    })
+    fetch(url, {method: 'POST',})
     .then(function(response) {
       return response.json();
     })

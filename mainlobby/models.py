@@ -20,6 +20,6 @@ class Order(models.Model):
     date_created = models.DateTimeField(auto_now_add=True, null = True, blank = True)
     complete = models.CharField(max_length=100)
     transaction_id = models.CharField(max_length=100)
-    license_file = models.ImageField(blank=True, null=True,upload_to='documents')
+    license_file = models.FileField(upload_to='myfiles/',blank=True)
     def __str__(self):
         return f'{self.user.username} {self.date_created}'

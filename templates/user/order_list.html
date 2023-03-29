@@ -25,12 +25,7 @@
                         <tr>
                             <td><a href="#" class="btn btn-sm btn-dark">{{order.id}}</a></td>
                             <td>{{order.complete}}</td>
-                            <td>
-                                {% for document in orders %}
-                                <a href="{% url 'download' order.license_file %}">Download</a>
-                                {% empty %}
-                                <li>No documents found.</li>
-                                {% endfor %}
+                            <td><a href="http://localhost:8000/media/{{order.license_file}}" download>Download</a></td>
                             <td>{{order.date_created}}</td>
                         </tr>
                         {% endfor %}

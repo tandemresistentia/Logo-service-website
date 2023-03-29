@@ -215,3 +215,6 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 STRIPE_PUBLIC_KEY = 'pk_test_51Mbox2IQDkGdDbUYvfjf4ItvBDZI4ZMA5Ic6XJnytAEZG1mwkR7J0Jc1Zo2xpDMBX4FqKi1aANHsQa8eFgRbpldt00JYckHaYg'
 STRIPE_API_KEY = 'sk_test_51Mbox2IQDkGdDbUYJBAuX34hyASJqjpvYYHyDGo7nOyWLG5jlvctEGMhxbGW7oVfYlwVoljqMo0MoLfhTNP0MhKM00My1cOU7W'
 STRIPE_SIGNING_SECRET = 'whsec_0d01203d265aaaa06ec4d6de76105a45f84e35cb5f2da3103bfa0479509295b9'
+
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_URL = '/media/'

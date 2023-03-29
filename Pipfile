@@ -68,6 +68,7 @@ wsproto = "==1.2.0"
 undetected-chromedriver = "*"
 pillow = "*"
 uuid = "*"
+django-downloadview = "*"
 
 [dev-packages]
 
