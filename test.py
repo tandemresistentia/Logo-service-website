@@ -41,7 +41,8 @@ class Data():
         groupLink = group.find_elements(By.TAG_NAME, "a")[0].get_attribute('href')
 
         time.sleep(1)
-        
+        scones = {}
+        scones['url'] = groupLink
         self.data.get(groupLink)
         
         self.data.refresh()
@@ -49,7 +50,7 @@ class Data():
 
         self.group = self.data.find_elements(By.CLASS_NAME, "package-type")[0]
         self.groupInfo1 = self.data.find_elements(By.CLASS_NAME, "description")[0]
-        scones = {}
+        
 
         for i in range(3):
             scones['type'+str(i)] = self.group.find_elements(By.CLASS_NAME, "type")[i].text

@@ -1,3 +1,10 @@
+
+var form = document.getElementById("form-id");
+
+document.getElementById("buy_regular_button").addEventListener("click", function () {
+  form.submit();
+});
+
 var stripe = Stripe('pk_test_51Mbox2IQDkGdDbUYvfjf4ItvBDZI4ZMA5Ic6XJnytAEZG1mwkR7J0Jc1Zo2xpDMBX4FqKi1aANHsQa8eFgRbpldt00JYckHaYg');
 
 // Gets all buy buttons

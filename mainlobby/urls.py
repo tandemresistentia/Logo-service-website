@@ -15,6 +15,9 @@ urlpatterns = [
     #User
     path('dashboard/',views.my_dashboard,name='dashboard'),
     path('orders/',views.order_list,name='orders'),
+    path('description_check_regular/', views.description_check_regular,name='description_check_regular'),
+    path('description_check_pro/', views.description_check_pro,name='description_check_pro'),
+    path('description_check_platinum/', views.description_check_platinum,name='description_check_platinum'),
 ]
 urlpatterns += static(settings.MEDIA_URL,
                               document_root=settings.MEDIA_ROOT)

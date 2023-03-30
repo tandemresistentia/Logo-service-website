@@ -1,7 +1,7 @@
 {% extends "_base.html" %}
 {% load static %} 
 {% block content %} 
-
+<link rel="stylesheet" href="{% static 'css/orders.css' %}">
 <main class ='container my-4'>
     <h3 class="my-4 border-bottom pb-1">Order List</h3>
     <div class="row">
@@ -24,8 +24,12 @@
                         {% for order in orders %}
                         <tr>
                             <td><a href="#" class="btn btn-sm btn-dark">{{order.id}}</a></td>
-                            <td>{{order.complete}}</td>
-                            <td><a href="http://localhost:8000/media/{{order.license_file}}" download>Download</a></td>
+                            <td id="status">{{order.complete}}</td>
+                            {% if not order.license_file %}
+                            <td><a href="" id="download" download></a></td>
+                            {% else %}
+                            <td><a href="http://localhost:8000/media/{{order.license_file}}" id="download" download>Download</a></td>
+                            {% endif %}
                             <td>{{order.date_created}}</td>
                         </tr>
                         {% endfor %}
@@ -35,7 +39,7 @@
         </div>
     </div>
 </main>
-
+<script src="{% static 'js/orders.js' %}"></script> 
 
 {%endblock %}
 

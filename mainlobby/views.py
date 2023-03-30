@@ -8,8 +8,6 @@ import json
 from django.contrib.auth import get_user_model
 
 
-user_email = None
-user = None
 def home(request):
     global user_email
     user_email = request.user.email
@@ -17,6 +15,13 @@ def home(request):
     user = request.user
     with open('json_data.json', encoding='utf-8') as json_file:
         dicts = json.load(json_file)
+    global price0 
+    price0=dicts['price0']
+    global price1 
+    price1=dicts['price1']
+    global price2 
+    price2=dicts['price2']
+    
     variable = {
       'type0':dicts['type0'],
       'price0':dicts['price0'],
@@ -60,7 +65,6 @@ def home(request):
       'revisions':dicts['revisions'],
       }
     
-
     return render(request,'home.html',variable)
 
 #success view
@@ -96,7 +100,7 @@ from django.views.decorators.http import require_POST
 from django.http import JsonResponse, HttpResponse
 from .models import Product
 from django.core.mail import send_mail
-
+from .forms import NameForm
 @login_required
 @csrf_exempt
 def create_stripe_checkout_session(request, product_name):
@@ -180,11 +184,16 @@ from django.shortcuts import redirect
 from .models import Order
 def _handle_successful_payment(checkout_session):
     # Define what to do after the user has successfully paid
+    with open('json_data.json', encoding='utf-8') as json_file:
+        dicts = json.load(json_file)
+
     neworder = Order()
     neworder.user = user
     neworder.date_created = datetime.datetime.now()
     neworder.complete = 'Pending'
     neworder.transaction_id = checkout_session["id"]
+    neworder.url = dicts['url']
+    neworder.item_description = name
     neworder.save()
 
 
@@ -206,4 +215,28 @@ def order_list(request):
     return render(request, 'user/order_list.html',{'orders':orders})
 
 
-
+def description_check_regular(request):
+    if request.method =='POST':
+        global name
+        name = request.POST['searchTxt']
+        variable = {'name':name,
+                    'price':price0,
+                    }
+    return render(request, 'description_check_regular.html',variable)
+def description_check_pro(request):
+    if request.method =='POST':
+        global name
+        name = request.POST['searchTxt2']
+        variable = {'name':name,
+                    'price':price1,
+                    }  
+   
+    return render(request, 'description_check_pro.html',variable)
+def description_check_platinum(request):
+    if request.method =='POST':
+        global name
+        name = request.POST['searchTxt3']
+        variable = {'name':name,
+                    'price':price2,
+                    }        
+    return render(request, 'description_check_platinum.html',variable)

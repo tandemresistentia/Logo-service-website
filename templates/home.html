@@ -26,9 +26,13 @@
           <li>{{ package_row18 }}</li>
         </ul>
 
-      {% csrf_token %}
+      
       {% if user.is_authenticated %}
-       <button id="buy_regular_button" type="button" class="buy-button btn btn-lg btn-block btn-outline-primary" value="product_regular">Buy Regular!</button>
+      <form action="description_check_regular/" id="form" method="post" name="form">
+        {% csrf_token %}
+      <textarea name="searchTxt" type="text" maxlength="512" id="searchTxt" onkeyup="success()" class="searchField" placeholder="Message" value="searchTxt"></textarea>
+      <button id="buy_regular_button" type="submit" class="btn btn-lg btn-block btn-outline-primary" value="product_regular" disabled>Buy Regular!</button>
+      </form>
         {% else %} 
         <a class="buy-button btn btn-lg btn-block btn-outline-primary" href="{% url 'account_signup' %}">Buy Regular!</a>
         {% endif %}
@@ -52,7 +56,11 @@
           <li>{{ package_row19 }}</li>
         </ul>
         {% if user.is_authenticated %}
-        <button id="buy_pro_button" type="button" class="buy-button btn btn-lg btn-block btn-outline-primary" value="product_pro">Buy Pro!</button>
+        <form action="description_check_pro/" id="form" method="post" name="form">
+          {% csrf_token %}
+        <textarea name="searchTxt2" type="text" maxlength="512" id="searchTxt2" onkeyup="success2()" class="searchField" placeholder="Message" value="searchTxt2"></textarea>
+        <button id="buy_pro_button" type="submit" class="btn btn-lg btn-block btn-outline-primary" value="product_pro" disabled>Buy Pro!</button>
+      </form>
         {% else %} 
         <a class="buy-button btn btn-lg btn-block btn-outline-primary" href="{% url 'account_signup' %}">Buy Pro!</a>
         {% endif %}
@@ -76,7 +84,11 @@
           <li>{{ package_row20 }}</li>
         </ul>
         {% if user.is_authenticated %}
-        <button id="buy_regular_button" type="button" class="buy-button btn btn-lg btn-block btn-outline-primary" value="product_platinum">Buy Platinum!</button>
+        <form action="description_check_platinum/" id="form" method="post" name="form">
+          {% csrf_token %}
+        <textarea name="searchTxt3" type="text" maxlength="512" id="searchTxt3" onkeyup="success3()" class="searchField" placeholder="Message" value="searchTxt3"></textarea>
+        <button id="buy_platinum_button" type="submit" class="btn btn-lg btn-block btn-outline-primary" value="product_platinum" disabled>Buy Platinum!</button>
+      </form>
         {% else %} 
         <a class="buy-button btn btn-lg btn-block btn-outline-primary" href="{% url 'account_signup' %}">Buy Platinum!</a>
         {% endif %}
