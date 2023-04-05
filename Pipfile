@@ -70,6 +70,7 @@ pillow = "*"
 uuid = "*"
 django-downloadview = "*"
 grab = "*"
+dj-database-url = "*"
 
 [dev-packages]
 

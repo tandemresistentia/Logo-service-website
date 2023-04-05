@@ -1,16 +1,9 @@
 
-var form = document.getElementById("form-id");
-
-document.getElementById("buy_regular_button").addEventListener("click", function () {
-  form.submit();
-});
-
-var stripe = Stripe('pk_test_51Mbox2IQDkGdDbUYvfjf4ItvBDZI4ZMA5Ic6XJnytAEZG1mwkR7J0Jc1Zo2xpDMBX4FqKi1aANHsQa8eFgRbpldt00JYckHaYg');
+var stripe = Stripe('pk_live_51Mbox2IQDkGdDbUYbS6zMb7j65uZuWgrp3Oqdskf1tOS9XgGoqPggVD0IPWBU6cihKugl5N4rJym2MIi5K5B652i00Zx8YTxUJ');
 
 // Gets all buy buttons
 var buttons = document.getElementsByClassName('buy-button');
 for (i = 0; i < buttons.length; i++) {
-
   // for every button we will add a Stripe POST request action
   buttons[i].addEventListener('click', function(event) {
     var targetElement = event.target || event.srcElement;
@@ -42,4 +35,42 @@ for (i = 0; i < buttons.length; i++) {
 
   });
 
-}
+};
+
+
+function success() {
+  if(document.getElementById("searchTxt").value==="") { 
+           document.getElementById('buy_regular_button').disabled = true; 
+       } else { 
+           document.getElementById('buy_regular_button').disabled = false;
+       }
+   };
+
+function success2() {
+if(document.getElementById("searchTxt2").value==="") { 
+          document.getElementById('buy_pro_button').disabled = true; 
+      } else { 
+          document.getElementById('buy_pro_button').disabled = false;
+      }
+  };
+function success3() {
+  if(document.getElementById("searchTxt3").value==="") { 
+          document.getElementById('buy_platinum_button').disabled = true; 
+      } else { 
+          document.getElementById('buy_platinum_button').disabled = false;
+      }
+  };
+
+
+  document.getElementById('searchTxt').addEventListener("input", function(){
+    this.style.height = '0px';
+    this.style.height = this.scrollHeight + 'px';
+    });
+  document.getElementById('searchTxt2').addEventListener("input", function(){
+    this.style.height = '0px';
+    this.style.height = this.scrollHeight + 'px';
+    });
+    document.getElementById('searchTxt3').addEventListener("input", function(){
+      this.style.height = '0px';
+      this.style.height = this.scrollHeight + 'px';
+      });

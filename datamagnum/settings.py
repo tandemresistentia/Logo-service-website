@@ -27,7 +27,7 @@ SECRET_KEY = 'yx24%_&s-nvd6jcr@b8vk%le1r^-%$7^t&z&@q9qa9yz--y-v1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['whispering-island-33312.herokuapp.com/', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['troviders.com', 'localhost', '127.0.0.1']
 
 # production
 if ENVIRONMENT == 'production':
@@ -231,3 +231,7 @@ STRIPE_SIGNING_SECRET = 'whsec_0d01203d265aaaa06ec4d6de76105a45f84e35cb5f2da3103
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/media/'
+
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)

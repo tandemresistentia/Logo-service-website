@@ -1,0 +1,12 @@
+#description {
+    height: 300px;
+}
+
+table {
+    table-layout: fixed;
+    overflow-wrap: break-word;
+}
+
+.my-4.border-bottom.pb-1 {
+    padding-left: 20px;
+}
