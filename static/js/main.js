@@ -1,5 +1,5 @@
 
-var stripe = Stripe('pk_test_51Mbox2IQDkGdDbUYvfjf4ItvBDZI4ZMA5Ic6XJnytAEZG1mwkR7J0Jc1Zo2xpDMBX4FqKi1aANHsQa8eFgRbpldt00JYckHaYg');
+var stripe = Stripe('pk_live_51Mbox2IQDkGdDbUYbS6zMb7j65uZuWgrp3Oqdskf1tOS9XgGoqPggVD0IPWBU6cihKugl5N4rJym2MIi5K5B652i00Zx8YTxUJ');
 
 // Gets all buy buttons
 var buttons = document.getElementsByClassName('buy-button');

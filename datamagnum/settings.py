@@ -15,7 +15,7 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-ENVIRONMENT = 'development'
+ENVIRONMENT = 'production'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 SESSION_COOKIE_SECURE = False
@@ -25,9 +25,9 @@ SECURE_SSL_REDIRECT = False
 SECRET_KEY = 'yx24%_&s-nvd6jcr@b8vk%le1r^-%$7^t&z&@q9qa9yz--y-v1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['damp-dawn-44130.herokuapp.com/', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['whispering-island-33312.herokuapp.com/', 'localhost', '127.0.0.1']
 
 # production
 if ENVIRONMENT == 'production':
@@ -221,8 +221,12 @@ EMAIL_HOST_PASSWORD = 'SRHYxJF6fqhd'
 DEFAULT_FROM_EMAIL = 'support@valoriado.com'
 
 # Stripe
-STRIPE_PUBLIC_KEY = 'pk_test_51Mbox2IQDkGdDbUYvfjf4ItvBDZI4ZMA5Ic6XJnytAEZG1mwkR7J0Jc1Zo2xpDMBX4FqKi1aANHsQa8eFgRbpldt00JYckHaYg'
-STRIPE_API_KEY = 'sk_test_51Mbox2IQDkGdDbUYJBAuX34hyASJqjpvYYHyDGo7nOyWLG5jlvctEGMhxbGW7oVfYlwVoljqMo0MoLfhTNP0MhKM00My1cOU7W'
+TEST_STRIPE_PUBLIC_KEY = 'pk_test_51Mbox2IQDkGdDbUYvfjf4ItvBDZI4ZMA5Ic6XJnytAEZG1mwkR7J0Jc1Zo2xpDMBX4FqKi1aANHsQa8eFgRbpldt00JYckHaYg'
+TEST_STRIPE_API_KEY = 'sk_test_51Mbox2IQDkGdDbUYJBAuX34hyASJqjpvYYHyDGo7nOyWLG5jlvctEGMhxbGW7oVfYlwVoljqMo0MoLfhTNP0MhKM00My1cOU7W'
+
+STRIPE_PUBLIC_KEY = 'pk_live_51Mbox2IQDkGdDbUYbS6zMb7j65uZuWgrp3Oqdskf1tOS9XgGoqPggVD0IPWBU6cihKugl5N4rJym2MIi5K5B652i00Zx8YTxUJ'
+STRIPE_API_KEY = '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'
+
 STRIPE_SIGNING_SECRET = 'whsec_0d01203d265aaaa06ec4d6de76105a45f84e35cb5f2da3103bfa0479509295b9'
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
