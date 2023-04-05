@@ -18,7 +18,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 ENVIRONMENT = 'development'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
-
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+SECURE_SSL_REDIRECT = False
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'yx24%_&s-nvd6jcr@b8vk%le1r^-%$7^t&z&@q9qa9yz--y-v1'
 
@@ -39,6 +41,7 @@ if ENVIRONMENT == 'production':
     SESSION_COOKIE_SECURE = True # new
     CSRF_COOKIE_SECURE = True # new
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 
 # Application definition
 
@@ -81,7 +84,7 @@ ACCOUNT_USERNAME_REQUIRED = False # new
 ACCOUNT_AUTHENTICATION_METHOD = 'email' # new
 ACCOUNT_EMAIL_REQUIRED = True # new
 ACCOUNT_UNIQUE_EMAIL = True # new
-DEFAULT_FROM_EMAIL = 'admin@djangobookstore.com'
+
 
 
 # django-crispy-forms
@@ -209,7 +212,13 @@ CELERY_RESULT_BACKEND = 'django-db'
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
 # SMTP Settings
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtppro.zoho.eu'
+EMAIL_USE_SSL = True
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'support@valoriado.com'
+EMAIL_HOST_PASSWORD = 'SRHYxJF6fqhd'
+DEFAULT_FROM_EMAIL = 'support@valoriado.com'
 
 # Stripe
 STRIPE_PUBLIC_KEY = 'pk_test_51Mbox2IQDkGdDbUYvfjf4ItvBDZI4ZMA5Ic6XJnytAEZG1mwkR7J0Jc1Zo2xpDMBX4FqKi1aANHsQa8eFgRbpldt00JYckHaYg'

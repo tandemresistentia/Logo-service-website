@@ -3,7 +3,9 @@
 {% block content %} 
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
   <h1 class="display-4">LOGOS</h1>
+  
   <p class="lead">Revisions: {{ revisions }}</p>
+  <small class="d-block mb-3 text-muted">For each revision you can write a description of what to change of the product you received if you didn't like it</small>
 </div>
 
 <div class="container">
@@ -30,7 +32,7 @@
       {% if user.is_authenticated %}
       <form action="description_check_regular/" id="form" method="post" name="form">
         {% csrf_token %}
-      <textarea name="searchTxt" type="text" maxlength="512" id="searchTxt" onkeyup="success()" class="searchField" placeholder="Message" value="searchTxt"></textarea>
+      <textarea name="searchTxt" type="text" maxlength="512" id="searchTxt" onkeyup="success()" class="searchField" placeholder="Describe your logo..." value="searchTxt"></textarea>
       <button id="buy_regular_button" type="submit" class="btn btn-lg btn-block btn-outline-primary" value="product_regular" disabled>Buy Regular!</button>
       </form>
         {% else %} 
@@ -58,7 +60,7 @@
         {% if user.is_authenticated %}
         <form action="description_check_pro/" id="form" method="post" name="form">
           {% csrf_token %}
-        <textarea name="searchTxt2" type="text" maxlength="512" id="searchTxt2" onkeyup="success2()" class="searchField" placeholder="Message" value="searchTxt2"></textarea>
+        <textarea name="searchTxt2" type="text" maxlength="512" id="searchTxt2" onkeyup="success2()" class="searchField" placeholder="Describe your logo..." value="searchTxt2"></textarea>
         <button id="buy_pro_button" type="submit" class="btn btn-lg btn-block btn-outline-primary" value="product_pro" disabled>Buy Pro!</button>
       </form>
         {% else %} 
@@ -86,7 +88,7 @@
         {% if user.is_authenticated %}
         <form action="description_check_platinum/" id="form" method="post" name="form">
           {% csrf_token %}
-        <textarea name="searchTxt3" type="text" maxlength="512" id="searchTxt3" onkeyup="success3()" class="searchField" placeholder="Message" value="searchTxt3"></textarea>
+        <textarea name="searchTxt3" type="text" maxlength="512" id="searchTxt3" onkeyup="success3()" class="searchField" placeholder="Describe your logo..." value="searchTxt3"></textarea>
         <button id="buy_platinum_button" type="submit" class="btn btn-lg btn-block btn-outline-primary" value="product_platinum" disabled>Buy Platinum!</button>
       </form>
         {% else %} 

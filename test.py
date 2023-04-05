@@ -8,6 +8,9 @@ import time
 from selenium.webdriver.common.keys import Keys
 import undetected_chromedriver as uc
 from fake_useragent import UserAgent, FakeUserAgentError
+from selenium.webdriver.common.proxy import Proxy, ProxyType
+import urllib
+from grab import Grab, GrabError
 
 
 
@@ -20,7 +23,7 @@ class Browser:
             self.user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36"
         options = uc.ChromeOptions()
 
-        # options.add_argument("--user-agent=" + self.user_agent)
+    # options.add_argument("--user-agent=" + self.user_agent)
         self.bot = uc.Chrome(options=options)
         self.bot.delete_all_cookies()
     def getBot(self):
@@ -92,28 +95,23 @@ class Data():
             for o in range(3):
                 fake_radio = self.data.find_elements(By.CLASS_NAME, "delivery-time")[0]
                 scones['package_time'+str(o)] = (fake_radio.find_elements(By.TAG_NAME, "td")[o+1]).text
+            
         try:
-            scones['revisions'] = self.data.find_elements(By.CLASS_NAME, "revisions-wrapper")[0].text
+            revisions_data = self.data.find_elements(By.CLASS_NAME, "revisions-wrapper")[0].text    
+            if revisions_data == 'Unlimited Revisions':
+                scones['revisions'] = 5
+            else:
+                scones['revisions'] = revisions_data[:1]
         except:
-            scones['revisions'] = ""
-
-
+            scones['revisions'] = 0
+        
         json_string = json.dumps(scones)
-        with open('json_data.json', 'w') as outfile:
+        with open('json_data'+str(self.number)+'.json', 'w') as outfile:
             outfile.write(json_string)
+        self.data.quit()
 
 
-number_test = 0
-p1 = Data('https://www.fiverr.com/search/gigs?query=website%20logo&source=sorting_by&ref_ctx_id=2c74800ccf9235596702ecd2aac3ed4b&search_in=everywhere&search-autocomplete-original-term=website%20logo&filter=rating&ref=delivery_time%3A7%7Cseller_level%3Atop_rated_seller%2Clevel_two_seller%7Cseller_language%3Aen%7Cis_seller_online%3Atrue%7Cpro%3Aany',str(number_test))
-
-p1.datatest()
-
-
-with open('json_data.json', encoding='utf-8') as json_file:
-    dicts = json.load(json_file)
-bool_revisions = bool(dicts['revisions'])
-i = 1
-while len(dicts['revisions']) == 0:
-        p1 = Data('https://www.fiverr.com/search/gigs?query=website%20logo&source=sorting_by&ref_ctx_id=2c74800ccf9235596702ecd2aac3ed4b&search_in=everywhere&search-autocomplete-original-term=website%20logo&filter=rating&ref=delivery_time%3A7%7Cseller_level%3Atop_rated_seller%2Clevel_two_seller%7Cseller_language%3Aen%7Cis_seller_online%3Atrue%7Cpro%3Aany',str(i))
-        p1.datatest()
-        i+=1
+for i in range(5):
+    p1 = Data('https://www.fiverr.com/search/gigs?query=website%20logo&source=drop_down_filters&ref_ctx_id=2c74800ccf9235596702ecd2aac3ed4b&search_in=everywhere&search-autocomplete-original-term=website%20logo&filter=rating&ref=delivery_time%3A7%7Cseller_language%3Aen%7Cis_seller_online%3Atrue%7Cpro%3Aany%7Cfile_format%3Ajpg%2Cpng',i)
+    p1.datatest()
+    time.sleep(60)

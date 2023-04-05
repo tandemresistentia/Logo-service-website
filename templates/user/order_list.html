@@ -9,28 +9,46 @@
             {% include 'user/user-sidebar.html' %}
             </div>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-auto">
             <div class="table-responsive">
                 <table class="table-bordered table">
                     <thead>
                         <tr>
-                            <th>OrderNo</th>
                             <th>Status</th>
                             <th>File</th>
                             <th>Order Time</th>
+                            <th>Revisions left</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for order in orders %}
                         <tr>
-                            <td><a href="#" class="btn btn-sm btn-dark">{{order.id}}</a></td>
+                            {% if not order.license_file %}
                             <td id="status">{{order.complete}}</td>
+                            {% else %}
+                            <td id="status">Delivered</td>
+                            {% endif %}
                             {% if not order.license_file %}
                             <td><a href="" id="download" download></a></td>
                             {% else %}
                             <td><a href="http://localhost:8000/media/{{order.license_file}}" id="download" download>Download</a></td>
                             {% endif %}
                             <td>{{order.date_created}}</td>
+                            <td id="order_revision1">{{order.revisions_data}}</td>
+                            {% if not order.license_file %}
+                            {% else %}
+                            {% if order.revisions_data == 0%}
+                            {% else %}
+                            <form action="" id="form" method="post" name="form">
+                            {% csrf_token %}
+                            <td>Didnt like how the product ended up? Write what you want to change:</td>
+                            <input type="text" name="order_id" id="order_id" value={{order.id}} hidden>
+                            <input type="text" name="order_revision" id="order_revision" value={{order.revisions_data}} hidden>
+                            <td><textarea name="update_data" type="text" maxlength="512" id="update_data" onkeyup="success()" class="searchField" placeholder="Describe your logo..."></textarea></td>
+                            <td><button id="revision" type="submit">Send Revision</button></td>
+                            </form>
+                            {% endif %}
+                            {% endif %}
                         </tr>
                         {% endfor %}
                     </tbody>

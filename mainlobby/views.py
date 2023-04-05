@@ -6,15 +6,59 @@ from django.http.response import JsonResponse,HttpResponse,FileResponse # new
 from django.views.decorators.csrf import csrf_exempt # new
 import json
 from django.contrib.auth import get_user_model
-
-
+from django.core.exceptions import SuspiciousOperation
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
+import stripe
+stripe.api_key = settings.STRIPE_API_KEY
+from django.views.decorators.http import require_POST
+from django.http import JsonResponse, HttpResponse
+from .models import Product
+from django.core.mail import send_mail
+from .forms import NameForm
+import datetime
+import random
+from django.shortcuts import redirect
+from .models import Order
+import os 
 def home(request):
-    global user_email
-    user_email = request.user.email
-    global user
-    user = request.user
-    with open('json_data.json', encoding='utf-8') as json_file:
-        dicts = json.load(json_file)
+    try:
+        global user_email
+        user_email = request.user.email
+        global user
+        user = request.user
+    except:
+        pass
+    i = 0
+    global json_data
+    try:
+        json_data = 'json_data'+str(i)+'.json'
+        with open(json_data, encoding='utf-8') as json_file:
+            dicts = json.load(json_file)
+    except:
+        i+=1
+        try:
+            json_data = 'json_data'+str(i)+'.json'
+            with open(json_data, encoding='utf-8') as json_file:
+                dicts = json.load(json_file)
+        except:
+            i+=1
+            try:
+                json_data = 'json_data'+str(i)+'.json'
+                with open(json_data, encoding='utf-8') as json_file:
+                    dicts = json.load(json_file)
+            except:
+                i+=1
+                try:
+                    json_data = 'json_data'+str(i)+'.json'
+                    with open(json_data, encoding='utf-8') as json_file:
+                        dicts = json.load(json_file)
+                except:
+                    i+=1
+                    json_data = 'json_data'+str(i)+'.json'
+                    with open(json_data, encoding='utf-8') as json_file:
+                        dicts = json.load(json_file)
     global price0 
     price0=dicts['price0']
     global price1 
@@ -22,6 +66,10 @@ def home(request):
     global price2 
     price2=dicts['price2']
     
+    global url_data
+    url_data = dicts['url']
+    global revisions_data
+    revisions_data = dicts['revisions']
     variable = {
       'type0':dicts['type0'],
       'price0':dicts['price0'],
@@ -90,25 +138,38 @@ PRODUCTS_STRIPE_PRODUCTS_ID = {
     'product_platinum': 'prod_NNGCiIjFqFlFTx',
 }
 
-from django.core.exceptions import SuspiciousOperation
-from django.http import JsonResponse
-from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_exempt
-import stripe
-stripe.api_key = settings.STRIPE_API_KEY
-from django.views.decorators.http import require_POST
-from django.http import JsonResponse, HttpResponse
-from .models import Product
-from django.core.mail import send_mail
-from .forms import NameForm
+
 @login_required
 @csrf_exempt
 def create_stripe_checkout_session(request, product_name):
+    i = 0
+    try:
+        with open('json_data'+str(i)+'.json', encoding='utf-8') as json_file:
+            dicts = json.load(json_file)
+    except:
+        i+=1
+        try:
+            with open('json_data'+str(i)+'.json', encoding='utf-8') as json_file:
+                dicts = json.load(json_file)
+        except:
+            i+=1
+            try:
+                with open('json_data'+str(i)+'.json', encoding='utf-8') as json_file:
+                    dicts = json.load(json_file)
+            except:
+                i+=1
+                try:
+                    with open('json_data'+str(i)+'.json', encoding='utf-8') as json_file:
+                        dicts = json.load(json_file)
+                except:
+                    i+=1
+                    with open('json_data'+str(i)+'.json', encoding='utf-8') as json_file:
+                        dicts = json.load(json_file)
+                
 
     try:
 
-        with open('json_data.json', encoding='utf-8') as json_file:
-            dicts = json.load(json_file)
+            
         price0 = float(dicts['price0']) * 100
         price1 = float(dicts['price1']) * 100
         price2 = float(dicts['price2']) * 100
@@ -149,8 +210,7 @@ def create_stripe_checkout_session(request, product_name):
     except Exception as e:
         print(e)
         raise SuspiciousOperation(e)
-import datetime
-import random
+
 @require_POST
 @csrf_exempt
 def stripe_webhook_paid_endpoint(request):
@@ -180,20 +240,18 @@ def stripe_webhook_paid_endpoint(request):
     # Passed signature verification
     return HttpResponse(status=200)
 
-from django.shortcuts import redirect
-from .models import Order
+
 def _handle_successful_payment(checkout_session):
     # Define what to do after the user has successfully paid
-    with open('json_data.json', encoding='utf-8') as json_file:
-        dicts = json.load(json_file)
+
 
     neworder = Order()
     neworder.user = user
     neworder.date_created = datetime.datetime.now()
-    neworder.complete = 'Pending'
     neworder.transaction_id = checkout_session["id"]
-    neworder.url = dicts['url']
+    neworder.url = url_data
     neworder.item_description = name
+    neworder.revisions_data = revisions_data
     neworder.save()
 
 
@@ -204,20 +262,44 @@ def _handle_successful_payment(checkout_session):
         subject='Here is your product',
         message='Thanks for your purchase',
         recipient_list=[user_email],
-        from_email='test@email.com'
+        from_email=settings.EMAIL_HOST_USER
     )
-
+    
+    if json_data != 'json_data4.json':
+        os.remove(json_data)
+    else:
+        test.delay()
+    
 def my_dashboard(request):
     return render(request, 'user/dashboard.html')
 
 def order_list(request):
     orders = Order.objects.filter(user=request.user).order_by('-id')
-    return render(request, 'user/order_list.html',{'orders':orders})
 
+    if request.method =='POST':
+
+        id_data = request.POST['order_id']
+        order_data1 = Order.objects.get(id=int(id_data))  
+        new_description = request.POST['update_data'] 
+        old_desc = order_data1.item_description 
+
+        if old_desc != new_description: 
+            revision_data = request.POST['order_revision']
+            order_data1.revisions_data = (int(order_data1.revisions_data) -1)
+            order_data1.item_description = new_description
+            order_data1.license_file = None
+            order_data1.complete = 'In Progress'
+            order_data1.save()
+
+
+
+    return render(request, 'user/order_list.html',{'orders':orders})
+        
 
 def description_check_regular(request):
     if request.method =='POST':
         global name
+        global price0
         name = request.POST['searchTxt']
         variable = {'name':name,
                     'price':price0,
@@ -226,6 +308,7 @@ def description_check_regular(request):
 def description_check_pro(request):
     if request.method =='POST':
         global name
+        global price1
         name = request.POST['searchTxt2']
         variable = {'name':name,
                     'price':price1,
@@ -235,6 +318,7 @@ def description_check_pro(request):
 def description_check_platinum(request):
     if request.method =='POST':
         global name
+        global price2
         name = request.POST['searchTxt3']
         variable = {'name':name,
                     'price':price2,

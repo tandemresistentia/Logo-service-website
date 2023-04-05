@@ -69,6 +69,7 @@ undetected-chromedriver = "*"
 pillow = "*"
 uuid = "*"
 django-downloadview = "*"
+grab = "*"
 
 [dev-packages]
 
