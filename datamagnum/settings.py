@@ -27,8 +27,8 @@ SECRET_KEY = 'yx24%_&s-nvd6jcr@b8vk%le1r^-%$7^t&z&@q9qa9yz--y-v1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['troviders.com', 'localhost', '127.0.0.1']
-
+ALLOWED_HOSTS = ['https://datamagnum.fly.dev', 'localhost', '127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://datamagnum.fly.dev']
 # production
 if ENVIRONMENT == 'production':
     SECURE_BROWSER_XSS_FILTER = True # new
