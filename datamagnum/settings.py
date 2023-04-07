@@ -27,7 +27,7 @@ SECRET_KEY = 'yx24%_&s-nvd6jcr@b8vk%le1r^-%$7^t&z&@q9qa9yz--y-v1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost")
+ALLOWED_HOSTS = ("DJANGO_ALLOWED_HOSTS", "127.0.0.1","localhost")
 CSRF_TRUSTED_ORIGINS = ['https://datamagnum.fly.dev']
 
 # production
