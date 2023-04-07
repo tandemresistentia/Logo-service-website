@@ -1,2 +1,2 @@
 [phases.setup]
-aptPkgs = ['...', 'libcurl4-openssl-dev', 'libssl-dev', 'libcurl4-gnutls-dev', 'libcurl4-nss-dev']
+aptPkgs = ['...', 'libcurl4-openssl-dev', 'libcurl4-gnutls-dev', 'libcurl4-nss-dev']
