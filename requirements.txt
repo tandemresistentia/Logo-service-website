@@ -81,4 +81,3 @@ websockets==10.4
 Werkzeug==2.2.2
 whitenoise==6.4.0
 wsproto==1.2.0
-yarg==0.1.9
