@@ -29,6 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost")
 CSRF_TRUSTED_ORIGINS = ['https://datamagnum.fly.dev']
+
 # production
 if ENVIRONMENT == 'production':
     SECURE_BROWSER_XSS_FILTER = True # new
@@ -232,6 +233,3 @@ STRIPE_SIGNING_SECRET = 'whsec_0d01203d265aaaa06ec4d6de76105a45f84e35cb5f2da3103
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/media/'
 
-import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
