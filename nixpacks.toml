@@ -1,3 +1,4 @@
 [phases.setup]
-cmds = ['sudo systemctl start postgresql, 'sudo systemctl enable postgresql']
+cmd = 'sudo systemctl start postgresql'
+cmd = 'sudo systemctl enable postgresql'
 
