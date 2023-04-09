@@ -18,9 +18,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 ENVIRONMENT = 'production'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
-SESSION_COOKIE_SECURE = False
-CSRF_COOKIE_SECURE = False
-SECURE_SSL_REDIRECT = False
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'yx24%_&s-nvd6jcr@b8vk%le1r^-%$7^t&z&@q9qa9yz--y-v1'
 
@@ -28,10 +26,11 @@ SECRET_KEY = 'yx24%_&s-nvd6jcr@b8vk%le1r^-%$7^t&z&@q9qa9yz--y-v1'
 DEBUG = True
 
 ALLOWED_HOSTS = ("web-production-b540.up.railway.app", "127.0.0.1","localhost")
-CSRF_TRUSTED_ORIGINS = ['https://datamagnum.fly.dev']
 
 # production
+
 if ENVIRONMENT == 'production':
+    DEBUG = False
     SECURE_BROWSER_XSS_FILTER = True # new
     X_FRAME_OPTIONS = 'DENY' # new
     SECURE_SSL_REDIRECT = True # new
@@ -42,7 +41,10 @@ if ENVIRONMENT == 'production':
     SESSION_COOKIE_SECURE = True # new
     CSRF_COOKIE_SECURE = True # new
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
+else:
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False
+    SECURE_SSL_REDIRECT = False
 
 # Application definition
 
@@ -130,19 +132,25 @@ WSGI_APPLICATION = 'datamagnum.wsgi.application'
 
 
 
-
-DATABASES = {
-    'default': {
-        #'ENGINE': 'django.db.backends.sqlite3',
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'i43hlLrgvg24P3RD3wKi',
-        'HOST': 'containers-us-west-41.railway.app',
-        'PORT': '5939',
+if ENVIRONMENT == 'production':
+    DATABASES = {
+        'default': {
+            #'ENGINE': 'django.db.backends.sqlite3',
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'railway',
+            'USER': 'postgres',
+            'PASSWORD': 'i43hlLrgvg24P3RD3wKi',
+            'HOST': 'containers-us-west-41.railway.app',
+            'PORT': '5939',
+        }
     }
-}
-
+else:
+    DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "mydatabase",
+        }
+    }
 
 
 # Password validation
