@@ -10,7 +10,6 @@ import undetected_chromedriver as uc
 from fake_useragent import UserAgent, FakeUserAgentError
 from selenium.webdriver.common.proxy import Proxy, ProxyType
 import urllib
-from grab import Grab, GrabError
 
 
 

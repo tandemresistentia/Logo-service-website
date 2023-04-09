@@ -1,1 +1,2 @@
-web: python manage.py migrate && gunicorn datamagnum.wsgi 
+web: python manage.py migrate && gunicorn datamagnum.wsgi && stripe listen --forward-to http://localhost:8000/stripe-webhook-paid/ && celery -A datamagnum worker --pool=solo -l INFO
+ && celery -A datamagnum beat -l INFO
