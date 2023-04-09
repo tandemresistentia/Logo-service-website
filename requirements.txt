@@ -60,4 +60,4 @@ wcwidth==0.2.6
 websockets==11.0.1
 whitenoise==6.4.0
 wsproto==1.2.0
-gunicorn==20.1.0
+gunicorn==20.0.4
