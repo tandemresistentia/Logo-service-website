@@ -63,3 +63,4 @@ wsproto==1.2.0
 gunicorn==20.1.0
 django-environ==0.10.0
 cPython==0.0.6
+redis==4.5.4
