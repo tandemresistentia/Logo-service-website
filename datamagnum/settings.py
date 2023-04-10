@@ -18,12 +18,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 ENVIRONMENT = 'production'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
-import environ
-env = environ.Env()
-# reading .env file
-environ.Env.read_env()
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -237,7 +234,7 @@ DEFAULT_FROM_EMAIL = 'support@valoriado.com'
 
 if ENVIRONMENT == 'production':
     STRIPE_PUBLIC_KEY = 'pk_live_51Mbox2IQDkGdDbUYbS6zMb7j65uZuWgrp3Oqdskf1tOS9XgGoqPggVD0IPWBU6cihKugl5N4rJym2MIi5K5B652i00Zx8YTxUJ'
-    STRIPE_API_KEY = env('STRIPE_API_KEY')
+    STRIPE_API_KEY = str(os.getenv('STRIPE_API_KEY'))
 else:
     TEST_STRIPE_PUBLIC_KEY = 'pk_test_51Mbox2IQDkGdDbUYvfjf4ItvBDZI4ZMA5Ic6XJnytAEZG1mwkR7J0Jc1Zo2xpDMBX4FqKi1aANHsQa8eFgRbpldt00JYckHaYg'
     TEST_STRIPE_API_KEY = 'sk_test_51Mbox2IQDkGdDbUYJBAuX34hyASJqjpvYYHyDGo7nOyWLG5jlvctEGMhxbGW7oVfYlwVoljqMo0MoLfhTNP0MhKM00My1cOU7W'
