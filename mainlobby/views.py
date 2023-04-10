@@ -127,15 +127,15 @@ def cancel(request):
 
 
 PRODUCTS_STRIPE_PRICING_ID = {
-    'product_regular': 'price_1McVfZIQDkGdDbUYT2e4DkjX',
-    'product_pro': 'price_1MoY0DIQDkGdDbUY7B7Q3dnX',
-    'product_platinum': 'price_1McVgSIQDkGdDbUYgQK63TLr',
+    'product_regular': 'price_1MvNFaIQDkGdDbUY0KU0Gm4e',
+    'product_pro': 'price_1MvNGFIQDkGdDbUYqGx8czJ5',
+    'product_platinum': 'price_1MvNFwIQDkGdDbUYJHQr0HSW',
 }
 
 PRODUCTS_STRIPE_PRODUCTS_ID = {
-    'product_regular': 'prod_NNGBiaHKfU1wzw',
-    'product_pro': 'prod_NNGCYC1hpTNBjQ',
-    'product_platinum': 'prod_NNGCiIjFqFlFTx',
+    'product_regular': 'prod_NgklgdcS9FRdq2',
+    'product_pro': 'prod_NgklZip6JvzoXq',
+    'product_platinum': 'prod_NgklsIdd0RGlCD',
 }
 
 
