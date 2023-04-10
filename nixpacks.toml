@@ -1,4 +1,3 @@
+# nixpacks.toml
 [phases.setup]
-cmd = 'sudo systemctl start postgresql'
-cmd = 'sudo systemctl enable postgresql'
-
+nixPkgs = ['...', 'stripe-cli']
