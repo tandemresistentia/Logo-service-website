@@ -264,6 +264,13 @@ def _handle_successful_payment(checkout_session):
         recipient_list=[user_email],
         from_email=settings.EMAIL_HOST_USER
     )
+
+    send_mail(
+        subject='You have a new order!',
+        message='Fill it out',
+        recipient_list='luismvg41@gmail.com',
+        from_email=settings.EMAIL_HOST_USER
+    )
     
     if json_data != 'json_data4.json':
         os.remove(json_data)

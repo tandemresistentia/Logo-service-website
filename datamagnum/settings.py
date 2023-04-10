@@ -23,7 +23,6 @@ ENVIRONMENT = 'production'
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = ("web-production-b540.up.railway.app", "127.0.0.1","localhost")
 
@@ -42,6 +41,7 @@ if ENVIRONMENT == 'production':
     CSRF_COOKIE_SECURE = True # new
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 else:
+    DEBUG = True
     SESSION_COOKIE_SECURE = False
     CSRF_COOKIE_SECURE = False
     SECURE_SSL_REDIRECT = False
@@ -211,12 +211,12 @@ INTERNAL_IPS = [ip[:-1] + "1" for ip in ips]
 # CELERY SETTINGS
 
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'UTC'
+accept_content = ['application/json']
+result_serializer = 'json'
+task_serializer = 'json'
+timezone = 'UTC'
 
-CELERY_RESULT_BACKEND = 'django-db'
+result_backend = 'django-db'
 
 #CELERY BEAT
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
