@@ -122,8 +122,5 @@ class Data():
 
 @shared_task(bind=True)
 def test(self):
-    data = Browser().getBot()
-    data.get('https://scrapeme.live/shop/')
-    group = data.find_elements(By.CLASS_NAME, "products.columns-4")[0].text
-    print(group)
-    data.quit()
+    for i in range(10):
+        print('Works!!')
