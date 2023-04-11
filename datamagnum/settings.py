@@ -218,7 +218,7 @@ result_serializer = 'json'
 task_serializer = 'json'
 timezone = 'UTC'
 
-result_backend = 'django-db'
+
 
 #CELERY BEAT
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
