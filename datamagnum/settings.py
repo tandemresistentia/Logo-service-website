@@ -210,7 +210,7 @@ INTERNAL_IPS = [ip[:-1] + "1" for ip in ips]
 
 # CELERY SETTINGS
 
-CELERY_BROKER_URL = 'redis://web-production-b540.up.railway.app:6379/0'
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
 accept_content = ['application/json']
 result_serializer = 'json'
 task_serializer = 'json'
