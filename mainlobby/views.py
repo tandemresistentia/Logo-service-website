@@ -321,10 +321,7 @@ class Browser:
 
 
 def order_list(request):
-    data = Browser().getBot()
-    data.get('https://scrapeme.live/shop/')
-    group = data.find_elements(By.CLASS_NAME, "products.columns-4")[0].text
-    print(group)
+    test.delay()
     try:
         orders = Order.objects.filter(user=request.user).order_by('-id')
     except:
