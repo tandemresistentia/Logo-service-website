@@ -4,7 +4,7 @@ async-generator==1.10
 async-timeout==4.0.2
 attrs==22.2.0
 billiard==3.6.4.0
-celery==5.2.7
+
 certifi==2022.12.7
 cffi==1.15.1
 charset-normalizer==3.1.0
@@ -66,4 +66,4 @@ wcwidth==0.2.6
 websockets==11.0.1
 whitenoise==6.4.0
 wsproto==1.2.0
-gunicorn==20.1.0
+

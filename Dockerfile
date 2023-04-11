@@ -10,4 +10,4 @@ RUN  apt-get update \
   && rm -rf /var/lib/apt/lists/*
 RUN wget -c https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 RUN sudo apt install -y ./google-chrome-stable_current_amd64.deb
-RUN pip install -r ./requirements.txt
+
