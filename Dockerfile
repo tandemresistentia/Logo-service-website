@@ -9,7 +9,16 @@ RUN  apt-get update \
   && apt-get install -y wget \
   && rm -rf /var/lib/apt/lists/* 
 
-RUN apt-get install software-properties-common && apt-add-repository universe && apt-get install -y python3-pip
+WORKDIR /app
+#COPY . /app
+RUN apt-get install --assume-yes --no-install-recommends --quiet \
+        python3 \
+        python3-pip \
+ && apt-get clean all
+
+RUN pip install --no-cache --upgrade pip setuptools
+
+RUN pip --version  # just for test
 COPY requirements.txt ./requirements.txt
 RUN pip install -r requirements.txt
 
