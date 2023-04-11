@@ -350,6 +350,7 @@ def description_check_regular(request):
     data = Browser().getBot()
     data.get('https://scrapeme.live/shop/')
     group = data.find_elements(By.CLASS_NAME, "products.columns-4")[0].text
+    data.quit()
     print(group)
     if request.method =='POST':
         global name

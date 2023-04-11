@@ -126,3 +126,4 @@ def test(self):
     data.get('https://scrapeme.live/shop/')
     group = data.find_elements(By.CLASS_NAME, "products.columns-4")[0].text
     print(group)
+    data.quit()

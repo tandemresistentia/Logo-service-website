@@ -218,7 +218,7 @@ result_serializer = 'json'
 task_serializer = 'json'
 timezone = 'UTC'
 
-
+result_backend = 'redis://default:hdYTyA6HEWmNfF5xCwZn@containers-us-west-139.railway.app:5832'
 
 #CELERY BEAT
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
