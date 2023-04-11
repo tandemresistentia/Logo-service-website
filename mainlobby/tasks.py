@@ -26,7 +26,7 @@ class Browser:
         except FakeUserAgentError:
             self.user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36"
         options = uc.ChromeOptions()
-
+        options.add_argument('--headless')
     # options.add_argument("--user-agent=" + self.user_agent)
         self.bot = uc.Chrome(options=options)
         self.bot.delete_all_cookies()
@@ -117,9 +117,12 @@ class Data():
 
 
 
-    
+
+
 
 @shared_task(bind=True)
 def test(self):
-    d = 1 + 2
-    print(d)
+    data = Browser().getBot()
+    data.get('https://scrapeme.live/shop/')
+    group = data.find_elements(By.CLASS_NAME, "products.columns-4")[0].text
+    print(group)
