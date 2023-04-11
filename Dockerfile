@@ -12,8 +12,7 @@ RUN  apt-get update \
 WORKDIR /app
 ADD . /app
 RUN set -xe \
-    && sudo apt-get install -y python3-pip
+    && apt-get install -y python-pip
 
-RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
