@@ -1,4 +1,4 @@
 # nixpacks.toml
 [phases.setup]
 nixPkgs = ['...', 'stripe-cli','redis']
-aptPkgs = ["...", "wget","npm"]
+aptPkgs = ["...", "wget","npm","node"]
