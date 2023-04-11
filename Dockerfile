@@ -7,7 +7,7 @@ EXPOSE 22 80
 CMD ["/usr/bin/supervisord"]
 RUN  apt-get update \
   && apt-get install -y wget \
-  && rm -rf /var/lib/apt/lists/*
+  && rm -rf /var/lib/apt/lists/* && apt install python3-pip
 COPY requirements.txt ./requirements.txt
-RUN pip install -r requirements.txt
+RUN pip3 install -r requirements.txt
 
