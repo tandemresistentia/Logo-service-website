@@ -11,7 +11,10 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 import stripe
-stripe.api_key = settings.STRIPE_API_KEY
+try:
+    stripe.api_key = settings.STRIPE_API_KEY
+except:
+    stripe.api_key = settings.TEST_STRIPE_API_KEY
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse, HttpResponse
 from .models import Product
@@ -281,8 +284,11 @@ def my_dashboard(request):
     return render(request, 'user/dashboard.html')
 
 def order_list(request):
-    orders = Order.objects.filter(user=request.user).order_by('-id')
-
+    test.delay()
+    try:
+        orders = Order.objects.filter(user=request.user).order_by('-id')
+    except:
+        orders = None
     if request.method =='POST':
 
         id_data = request.POST['order_id']

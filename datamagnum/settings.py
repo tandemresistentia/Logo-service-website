@@ -40,11 +40,13 @@ if ENVIRONMENT == 'production':
     SESSION_COOKIE_SECURE = True # new
     CSRF_COOKIE_SECURE = True # new
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    CELERY_BROKER_URL = 'redis://default:hdYTyA6HEWmNfF5xCwZn@containers-us-west-139.railway.app:5832'
 else:
     DEBUG = True
     SESSION_COOKIE_SECURE = False
     CSRF_COOKIE_SECURE = False
     SECURE_SSL_REDIRECT = False
+    CELERY_BROKER_URL = 'redis://localhost:6379/0'
 
 # Application definition
 
@@ -210,7 +212,7 @@ INTERNAL_IPS = [ip[:-1] + "1" for ip in ips]
 
 # CELERY SETTINGS
 
-CELERY_BROKER_URL = 'redis://default:hdYTyA6HEWmNfF5xCwZn@containers-us-west-139.railway.app:5832'
+
 accept_content = ['application/json']
 result_serializer = 'json'
 task_serializer = 'json'
