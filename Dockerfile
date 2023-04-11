@@ -11,10 +11,12 @@ RUN  apt-get update \
 
 WORKDIR /app
 #COPY . /app
-RUN apt-get install --assume-yes --no-install-recommends --quiet \
-        python3 \
-        python3-pip \
- && apt-get clean all
+RUN apt-get update && apt-get install -y \
+    software-properties-common
+RUN add-apt-repository universe
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip
 
 RUN pip install --no-cache --upgrade pip setuptools
 
