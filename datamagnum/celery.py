@@ -18,7 +18,7 @@ from celery.schedules import crontab
 app.conf.beat_schedule = {
     'send-mail-every-day-at-8': {
         'task': 'mainlobby.tasks.test',
-        'schedule': 30,
+        'schedule': crontab(minute=0, hour=1),
         #'args': (2,)
     }
     
