@@ -278,52 +278,18 @@ def _handle_successful_payment(checkout_session):
     if json_data != 'json_data4.json':
         os.remove(json_data)
     else:
-        test.delay()
+        send_mail(
+        subject='Activate the script!',
+        message='Activate the script!',
+        recipient_list='luismvg41@gmail.com',
+        from_email=settings.EMAIL_HOST_USER
+    )
     
 def my_dashboard(request):
     return render(request, 'user/dashboard.html')
 
 
-from django.contrib.auth import get_user_model
-import json
-from celery import shared_task
-from django.core.mail import send_mail
-from datamagnum import settings
-from django.utils import timezone
-from datetime import timedelta
-from django.http import HttpResponse
-from django.template import loader
-from django.apps import AppConfig
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-import selenium.common
-import time
-from selenium.webdriver.common.keys import Keys
-import undetected_chromedriver as uc
-from fake_useragent import UserAgent, FakeUserAgentError
-from django.http import HttpRequest
-
-class Browser:
-    def __init__(self):
-        try:
-            ua = UserAgent()
-            self.user_agent = ua.random
-        except FakeUserAgentError:
-            self.user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36"
-        options = uc.ChromeOptions()
-        options.add_argument('--headless')
-        options.add_argument('--no-sandbox') 
-        options.add_argument('--disable-dev-shm-usage')    
-    # options.add_argument("--user-agent=" + self.user_agent)
-        self.bot = uc.Chrome(options=options)
-        self.bot.delete_all_cookies()
-    def getBot(self):
-        return self.bot 
-
-
 def order_list(request):
-    test.delay()
     try:
         orders = Order.objects.filter(user=request.user).order_by('-id')
     except:
