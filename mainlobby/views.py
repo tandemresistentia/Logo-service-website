@@ -349,8 +349,6 @@ def order_list(request):
         
 
 def description_check_regular(request):
-    
-    print(group)
     if request.method =='POST':
         global name
         global price0

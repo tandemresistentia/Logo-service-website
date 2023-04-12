@@ -33,6 +33,22 @@ class Browser:
     def getBot(self):
         return self.bot 
 
+class Browser:
+    def __init__(self):
+        try:
+            ua = UserAgent()
+            self.user_agent = ua.random
+        except FakeUserAgentError:
+            self.user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36"
+        options = uc.ChromeOptions()
+        options.add_argument('--headless')
+    # options.add_argument("--user-agent=" + self.user_agent)
+        self.bot = uc.Chrome(options=options)
+        
+        self.bot.delete_all_cookies()
+    def getBot(self):
+        return self.bot 
+
 class Data():
     def __init__(self,url,number):
         self.url = url
@@ -43,7 +59,7 @@ class Data():
         time.sleep(2)
 
     def datatest(self):
-        
+        print('Starting...')
         group = self.data.find_elements(By.CLASS_NAME, "gig-card-layout")[int(self.number)]
         groupLink = group.find_elements(By.TAG_NAME, "a")[0].get_attribute('href')
 
@@ -123,4 +139,6 @@ class Data():
 @shared_task(bind=True)
 def test(self):
     for i in range(5):
-        print('WORKS!')
+        p1 = Data('https://www.fiverr.com/search/gigs?query=website%20logo&source=drop_down_filters&ref_ctx_id=2c74800ccf9235596702ecd2aac3ed4b&search_in=everywhere&search-autocomplete-original-term=website%20logo&filter=rating&ref=delivery_time%3A7%7Cseller_language%3Aen%7Cis_seller_online%3Atrue%7Cpro%3Aany%7Cfile_format%3Ajpg%2Cpng',i)
+        p1.datatest()
+        time.sleep(60)
