@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from .tasks import test
 from celery.result import AsyncResult
 from django.conf import settings # new
 from django.http.response import JsonResponse,HttpResponse,FileResponse # new
