@@ -24,7 +24,7 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-ALLOWED_HOSTS = ("web-production-b540.up.railway.app", "127.0.0.1","localhost")
+ALLOWED_HOSTS = ("troviders.com","web-production-b540.up.railway.app", "127.0.0.1","localhost")
 
 # production
 
