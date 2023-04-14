@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %} 
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-  <h1 class="display-4">LOGOS</h1>
+  <h1 class="display-4">Describe how you want your logo to be and get it now!</h1>
   
   <p class="lead">Revisions: {{ revisions }}</p>
   <small class="d-block mb-3 text-muted">For each revision you can write a description of what to change of the product you received if you didn't like it</small>
@@ -16,6 +16,17 @@
       </div>
       <div class="card-body">
         <h1 class="card-title pricing-card-title">{{ price0 }}€</h1>
+
+        {% if user.is_authenticated %}
+        <form action="description_check_regular/" id="form" method="post" name="form">
+          {% csrf_token %}
+        <textarea name="searchTxt" type="text" maxlength="512" id="searchTxt" onkeyup="success()" class="searchField" placeholder="Describe your logo..." value="searchTxt"></textarea>
+        <button id="buy_regular_button" type="submit" class="btn btn-lg btn-block btn-outline-primary" value="product_regular" disabled>Buy Regular!</button>
+        </form>
+          {% else %} 
+          <a class="buy-button btn btn-lg btn-block btn-outline-primary" href="{% url 'account_signup' %}">Buy Regular!</a>
+          {% endif %}
+
         <ul class="list-unstyled mt-3 mb-4">
           <li>{{ desc0 }}</li>
           <li>{{ package_time0 }}</li>
@@ -29,15 +40,7 @@
         </ul>
 
       
-      {% if user.is_authenticated %}
-      <form action="description_check_regular/" id="form" method="post" name="form">
-        {% csrf_token %}
-      <textarea name="searchTxt" type="text" maxlength="512" id="searchTxt" onkeyup="success()" class="searchField" placeholder="Describe your logo..." value="searchTxt"></textarea>
-      <button id="buy_regular_button" type="submit" class="btn btn-lg btn-block btn-outline-primary" value="product_regular" disabled>Buy Regular!</button>
-      </form>
-        {% else %} 
-        <a class="buy-button btn btn-lg btn-block btn-outline-primary" href="{% url 'account_signup' %}">Buy Regular!</a>
-        {% endif %}
+
       </div>
     </div>
     <div class="card mb-4 shadow-sm">
@@ -46,6 +49,17 @@
       </div>
       <div class="card-body">
         <h1 class="card-title pricing-card-title">{{ price1 }}€</h1>
+
+        {% if user.is_authenticated %}
+        <form action="description_check_pro/" id="form" method="post" name="form">
+          {% csrf_token %}
+        <textarea name="searchTxt2" type="text" maxlength="512" id="searchTxt2" onkeyup="success2()" class="searchField" placeholder="Describe your logo..." value="searchTxt2"></textarea>
+        <button id="buy_pro_button" type="submit" class="btn btn-lg btn-block btn-outline-primary" value="product_pro" disabled>Buy Pro!</button>
+      </form>
+        {% else %} 
+        <a class="buy-button btn btn-lg btn-block btn-outline-primary" href="{% url 'account_signup' %}">Buy Pro!</a>
+        {% endif %}
+
         <ul class="list-unstyled mt-3 mb-4">
           <li>{{ desc1 }}</li>
           <li>{{ package_time1 }}</li>
@@ -57,15 +71,7 @@
           <li>{{ package_row16 }}</li>
           <li>{{ package_row19 }}</li>
         </ul>
-        {% if user.is_authenticated %}
-        <form action="description_check_pro/" id="form" method="post" name="form">
-          {% csrf_token %}
-        <textarea name="searchTxt2" type="text" maxlength="512" id="searchTxt2" onkeyup="success2()" class="searchField" placeholder="Describe your logo..." value="searchTxt2"></textarea>
-        <button id="buy_pro_button" type="submit" class="btn btn-lg btn-block btn-outline-primary" value="product_pro" disabled>Buy Pro!</button>
-      </form>
-        {% else %} 
-        <a class="buy-button btn btn-lg btn-block btn-outline-primary" href="{% url 'account_signup' %}">Buy Pro!</a>
-        {% endif %}
+
       </div>
     </div>
     <div class="card mb-4 shadow-sm">
@@ -74,6 +80,17 @@
       </div>
       <div class="card-body">
         <h1 class="card-title pricing-card-title">{{ price2 }}€</h1>
+
+        {% if user.is_authenticated %}
+        <form action="description_check_platinum/" id="form" method="post" name="form">
+          {% csrf_token %}
+        <textarea name="searchTxt3" type="text" maxlength="512" id="searchTxt3" onkeyup="success3()" class="searchField" placeholder="Describe your logo..." value="searchTxt3"></textarea>
+        <button id="buy_platinum_button" type="submit" class="btn btn-lg btn-block btn-outline-primary" value="product_platinum" disabled>Buy Platinum!</button>
+      </form>
+        {% else %} 
+        <a class="buy-button btn btn-lg btn-block btn-outline-primary" href="{% url 'account_signup' %}">Buy Platinum!</a>
+        {% endif %}
+
         <ul class="list-unstyled mt-3 mb-4">
           <li>{{ desc2 }}</li>
           <li>{{ package_time2 }}</li>
@@ -85,15 +102,7 @@
           <li>{{ package_row17 }}</li>
           <li>{{ package_row20 }}</li>
         </ul>
-        {% if user.is_authenticated %}
-        <form action="description_check_platinum/" id="form" method="post" name="form">
-          {% csrf_token %}
-        <textarea name="searchTxt3" type="text" maxlength="512" id="searchTxt3" onkeyup="success3()" class="searchField" placeholder="Describe your logo..." value="searchTxt3"></textarea>
-        <button id="buy_platinum_button" type="submit" class="btn btn-lg btn-block btn-outline-primary" value="product_platinum" disabled>Buy Platinum!</button>
-      </form>
-        {% else %} 
-        <a class="buy-button btn btn-lg btn-block btn-outline-primary" href="{% url 'account_signup' %}">Buy Platinum!</a>
-        {% endif %}
+
       </div>
     </div>
   </div>
