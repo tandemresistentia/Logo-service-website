@@ -16,6 +16,8 @@
       </div>
       <div class="card-body">
         <h1 class="card-title pricing-card-title">{{ price0 }}€</h1>
+        <p class="card-title pricing-card-title">70% OFF</p>
+        <small class="d-block mb-3 text-muted">Regular price: <s>{{ full_price0 }}€</s></small>
 
         {% if user.is_authenticated %}
         <form action="description_check_regular/" id="form" method="post" name="form">
@@ -50,6 +52,8 @@
       </div>
       <div class="card-body">
         <h1 class="card-title pricing-card-title">{{ price1 }}€</h1>
+        <p class="card-title pricing-card-title">70% OFF</p>
+        <small class="d-block mb-3 text-muted">Regular price: <s>{{ full_price1 }}€</s></small>
 
         {% if user.is_authenticated %}
         <form action="description_check_pro/" id="form" method="post" name="form">
@@ -82,6 +86,8 @@
       </div>
       <div class="card-body">
         <h1 class="card-title pricing-card-title">{{ price2 }}€</h1>
+        <p class="card-title pricing-card-title">70% OFF</p>
+        <small class="d-block mb-3 text-muted">Regular price: <s>{{ full_price2 }}€</s></small>
 
         {% if user.is_authenticated %}
         <form action="description_check_platinum/" id="form" method="post" name="form">

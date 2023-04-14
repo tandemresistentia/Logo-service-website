@@ -75,6 +75,7 @@ def home(request):
     variable = {
       'type0':dicts['type0'],
       'price0':dicts['price0'],
+      'full_price0':dicts['full_price0'],
       'desc0':dicts['desc0'],
       'package_time0':dicts['package_time0'],
       'package_row0':dicts['package_row0'],
@@ -89,6 +90,7 @@ def home(request):
 
       'type1':dicts['type1'],
       'price1':dicts['price1'],
+      'full_price1':dicts['full_price1'],
       'desc1':dicts['desc1'],
       'package_time1':dicts['package_time1'],
       'package_row1':dicts['package_row1'],
@@ -102,6 +104,7 @@ def home(request):
 
       'type2':dicts['type2'],
       'price2':dicts['price2'],
+      'full_price2':dicts['full_price2'],
       'desc2':dicts['desc2'],
       'package_time2':dicts['package_time2'],
       'package_row2':dicts['package_row2'],
