@@ -10,23 +10,23 @@
 
 <div class="container">
   <div class="card-deck mb-3 text-center">
-    <div class="card mb-4 shadow-sm">
+    <div class="card mb-4 shadow-sm container bg-secondary">
       <div class="card-header">
         <h4 class="my-0 font-weight-normal">Regular</h4>
       </div>
       <div class="card-body">
         <h1 class="card-title pricing-card-title">{{ price0 }}€</h1>
         <p class="card-title pricing-card-title">70% OFF</p>
-        <small class="d-block mb-3 text-muted">Regular price: <s>{{ full_price0 }}€</s></small>
+        <small class="d-block mb-3 text-white">Regular price: <s>{{ full_price0 }}€</s></small>
 
         {% if user.is_authenticated %}
         <form action="description_check_regular/" id="form" method="post" name="form">
           {% csrf_token %}
         <textarea name="searchTxt" type="text" maxlength="512" id="searchTxt" onkeyup="success()" class="searchField" placeholder="Describe your logo..." value="searchTxt"></textarea>
-        <button id="buy_regular_button" type="submit" class="btn btn-lg btn-block btn-outline-primary" value="product_regular" disabled>Order Now</button>
+        <button id="buy_regular_button" type="submit" class="btn btn-lg btn-block btn-outline-light" value="product_regular" disabled>Order Now</button>
         </form>
           {% else %} 
-          <a class="buy-button btn btn-lg btn-block btn-outline-primary" href="{% url 'account_signup' %}">Order Now</a>
+          <a class="buy-button btn btn-lg btn-block btn-outline-light" href="{% url 'account_signup' %}">Order Now</a>
           {% endif %}
 
         <ul class="list-unstyled mt-3 mb-4">
@@ -46,23 +46,23 @@
 
       </div>
     </div>
-    <div class="card mb-4 shadow-sm">
+    <div class="card mb-4 shadow-sm container bg-success">
       <div class="card-header">
         <h4 class="my-0 font-weight-normal">Pro</h4>
       </div>
       <div class="card-body">
         <h1 class="card-title pricing-card-title">{{ price1 }}€</h1>
         <p class="card-title pricing-card-title">70% OFF</p>
-        <small class="d-block mb-3 text-muted">Regular price: <s>{{ full_price1 }}€</s></small>
+        <small class="d-block mb-3 text-white">Regular price: <s>{{ full_price1 }}€</s></small>
 
         {% if user.is_authenticated %}
         <form action="description_check_pro/" id="form" method="post" name="form">
           {% csrf_token %}
         <textarea name="searchTxt2" type="text" maxlength="512" id="searchTxt2" onkeyup="success2()" class="searchField" placeholder="Describe your logo..." value="searchTxt2"></textarea>
-        <button id="buy_pro_button" type="submit" class="btn btn-lg btn-block btn-outline-primary" value="product_pro" disabled>Order Now</button>
+        <button id="buy_pro_button" type="submit" class="btn btn-lg btn-block btn-outline-light" value="product_pro" disabled>Order Now</button>
       </form>
         {% else %} 
-        <a class="buy-button btn btn-lg btn-block btn-outline-primary" href="{% url 'account_signup' %}">Order Now</a>
+        <a class="buy-button btn btn-lg btn-block btn-outline-light" href="{% url 'account_signup' %}">Order Now</a>
         {% endif %}
 
         <ul class="list-unstyled mt-3 mb-4">
@@ -80,23 +80,23 @@
 
       </div>
     </div>
-    <div class="card mb-4 shadow-sm">
+    <div class="card mb-4 shadow-sm container bg-warning">
       <div class="card-header">
         <h4 class="my-0 font-weight-normal">Platinum</h4>
       </div>
       <div class="card-body">
         <h1 class="card-title pricing-card-title">{{ price2 }}€</h1>
         <p class="card-title pricing-card-title">70% OFF</p>
-        <small class="d-block mb-3 text-muted">Regular price: <s>{{ full_price2 }}€</s></small>
+        <small class="d-block mb-3 text-white">Regular price: <s>{{ full_price2 }}€</s></small>
 
         {% if user.is_authenticated %}
         <form action="description_check_platinum/" id="form" method="post" name="form">
           {% csrf_token %}
         <textarea name="searchTxt3" type="text" maxlength="512" id="searchTxt3" onkeyup="success3()" class="searchField" placeholder="Describe your logo..." value="searchTxt3"></textarea>
-        <button id="buy_platinum_button" type="submit" class="btn btn-lg btn-block btn-outline-primary" value="product_platinum" disabled>Order Now</button>
+        <button id="buy_platinum_button" type="submit" class="btn btn-lg btn-block btn-outline-light" value="product_platinum" disabled>Order Now</button>
       </form>
         {% else %} 
-        <a class="buy-button btn btn-lg btn-block btn-outline-primary" href="{% url 'account_signup' %}">Order Now</a>
+        <a class="buy-button btn btn-lg btn-block btn-outline-light" href="{% url 'account_signup' %}">Order Now</a>
         {% endif %}
 
         <ul class="list-unstyled mt-3 mb-4">

@@ -34,3 +34,7 @@ html {
     min-width: 220px;
   }
 
+  body {
+    background-color: #303436;
+    color: white;
+  }

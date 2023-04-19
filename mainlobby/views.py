@@ -313,7 +313,7 @@ def order_list(request):
 
 
 
-    return render(request, 'user/order_list.html',{'orders':orders})
+    return render(request, 'dashboard/order_list.html',{'orders':orders})
         
 
 def description_check_regular(request):
