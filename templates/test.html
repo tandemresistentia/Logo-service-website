@@ -1,72 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Popup Button for Text Input</title>
+	<title>Popup Form with Input and Button</title>
 	<style>
-		/* Center the button */
-		.btn-center {
-			margin: auto;
-			display: block;
-			padding: 10px 20px;
-			background-color: #4CAF50;
-			color: white;
-			border: none;
-			border-radius: 5px;
-			cursor: pointer;
-		}
-		/* Style the popup */
 		.popup {
 			display: none;
-			position: absolute;
-			background-color: #f9f9f9;
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 300px;
+			padding: 20px;
 			border: 1px solid #ccc;
-			box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-			z-index: 1;
-		}
-		/* Style the popup content */
-		.popup-content {
-			padding: 10px;
-			font-size: 16px;
+			background-color: #fff;
 		}
 	</style>
 </head>
 <body>
-
-	<!-- Text input and popup button -->
-	<div>
-		<input type="text" id="myInput">
-		<button onclick="myFunction()" class="btn-center">Popup</button>
+	<button onclick="showPopup()">Click me!</button>
+	<div class="popup" id="myPopup">
+		<input type="text" placeholder="Enter your name">
+		<button>Submit</button>
+		<button onclick="hidePopup()">Close</button>
 	</div>
-
-	<!-- Popup content -->
-	<div id="myPopup" class="popup">
-		<div class="popup-content">
-			<p>This is a popup!</p>
-			<button onclick="closePopup()">Close</button>
-		</div>
-	</div>
-
-	<!-- JavaScript -->
 	<script>
-		// Get the popup
-		var popup = document.getElementById("myPopup");
-
-		// Get the button that opens the popup
-		var btn = document.getElementById("myBtn");
-
-		// Get the <span> element that closes the popup
-		var span = document.getElementsByClassName("close")[0];
-
-		// When the user clicks the button, open the popup
-		function myFunction() {
-			popup.style.display = "block";
+		function showPopup() {
+			document.getElementById("myPopup").style.display = "block";
 		}
 
-		// When the user clicks on <span> (x), close the popup
-		function closePopup() {
-			popup.style.display = "none";
+		function hidePopup() {
+			document.getElementById("myPopup").style.display = "none";
 		}
 	</script>
-
 </body>
 </html>

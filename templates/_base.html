@@ -20,12 +20,12 @@
   <body>
   <header>
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bd-dark border-bottom shadow-sm">
-  <h5 class="my-0 mr-md-auto font-weight-normal"><a href="{% url 'home' %}">Troviders</a></h5>
+  <h5 class="my-0 mr-md-auto"><a href="{% url 'home' %}" class="text-white">Troviders</a></h5>
   <nav class="my-2 my-md-0 mr-md-3">
-    <a class="p-2 text-dark" href="{% url 'orders' %}">Orders</a>
+    <a class="p-2 text-white" href="{% url 'orders' %}">Orders</a>
   </nav>
   {% if user.is_authenticated %}
-  <a class="btn btn-outline-primary" href="{% url 'account_logout' %}">Sign out</a>
+  <a class="btn btn-danger text-white" href="{% url 'account_logout' %}">Sign out</a>
   {% else %}
   <nav class="my-2 my-md-0 mr-md-3">
     <a class="btn btn-danger text-white" href="{% url 'account_login' %}">Sign in</a>

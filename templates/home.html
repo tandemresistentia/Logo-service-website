@@ -10,23 +10,29 @@
 
 <div class="container">
   <div class="card-deck mb-3 text-center">
-    <div class="card mb-4 shadow-sm container bg-secondary">
+    <div class="card mb-4 shadow-sm container bg-dark" style="border: 1px solid gray;">
       <div class="card-header">
-        <h4 class="my-0 font-weight-normal">Regular</h4>
+        <h4 class="my-0 font-weight-normal text-secondary" >Regular</h4>
       </div>
       <div class="card-body">
         <h1 class="card-title pricing-card-title">{{ price0 }}€</h1>
         <p class="card-title pricing-card-title">70% OFF</p>
-        <small class="d-block mb-3 text-white">Regular price: <s>{{ full_price0 }}€</s></small>
+        <small class="d-block mb-3 text-white">Regular price: <span class="text-danger"><s>{{ full_price0 }}€</s></span></small>
 
         {% if user.is_authenticated %}
         <form action="description_check_regular/" id="form" method="post" name="form">
           {% csrf_token %}
-        <textarea name="searchTxt" type="text" maxlength="512" id="searchTxt" onkeyup="success()" class="searchField" placeholder="Describe your logo..." value="searchTxt"></textarea>
-        <button id="buy_regular_button" type="submit" class="btn btn-lg btn-block btn-outline-light" value="product_regular" disabled>Order Now</button>
+          <a class="btn btn-lg btn-block btn-outline-danger" onclick="showPopup()">Order Now</a>
+          <div class="popup" id="myPopup">
+        <textarea name="searchTxt" type="text" maxlength="512" id="searchTxt" onkeyup="success()" class="form-control rounded bg-light" rows="5" cols="50" 
+        placeholder="Describe your logo..." value="searchTxt" style="resize: none;"></textarea>
+        <button id="buy_regular_button" type="submit" class="btn btn-lg btn-block btn-outline-danger mt-4" value="product_regular" disabled>Order Now</button>
+        <button onclick="hidePopup()" type="button" class="btn btn-lg btn-block btn-outline-light" >Close</button>
         </form>
+        </div>
+
           {% else %} 
-          <a class="buy-button btn btn-lg btn-block btn-outline-light" href="{% url 'account_signup' %}">Order Now</a>
+          <a class="buy-button btn btn-lg btn-block btn-outline-danger" href="{% url 'account_signup' %}">Order Now</a>
           {% endif %}
 
         <ul class="list-unstyled mt-3 mb-4">
@@ -46,23 +52,29 @@
 
       </div>
     </div>
-    <div class="card mb-4 shadow-sm container bg-success">
+    <div class="card mb-4 shadow-sm container bg-dark" style="border: 1px solid red;">
       <div class="card-header">
-        <h4 class="my-0 font-weight-normal">Pro</h4>
+        <h4 class="my-0 font-weight-normal text-danger">Pro</h4>
       </div>
       <div class="card-body">
         <h1 class="card-title pricing-card-title">{{ price1 }}€</h1>
         <p class="card-title pricing-card-title">70% OFF</p>
-        <small class="d-block mb-3 text-white">Regular price: <s>{{ full_price1 }}€</s></small>
+        <small class="d-block mb-3 text-white">Regular price: <span class="text-danger"><s>{{ full_price1 }}€</s></span></small>
 
         {% if user.is_authenticated %}
         <form action="description_check_pro/" id="form" method="post" name="form">
           {% csrf_token %}
-        <textarea name="searchTxt2" type="text" maxlength="512" id="searchTxt2" onkeyup="success2()" class="searchField" placeholder="Describe your logo..." value="searchTxt2"></textarea>
-        <button id="buy_pro_button" type="submit" class="btn btn-lg btn-block btn-outline-light" value="product_pro" disabled>Order Now</button>
-      </form>
+          <a class="btn btn-lg btn-block btn-outline-danger" onclick="showPopup2()">Order Now</a>
+          <div class="popup" id="myPopup2">
+        <textarea name="searchTxt2" type="text" maxlength="512" id="searchTxt2" onkeyup="success2()" class="form-control rounded bg-light" rows="5" cols="50" 
+        placeholder="Describe your logo..." value="searchTxt2" style="resize: none;"></textarea>
+        <button id="buy_pro_button" type="submit" class="btn btn-lg btn-block btn-outline-danger mt-4" value="product_pro" disabled>Order Now</button>
+        <button onclick="hidePopup2()" type="button" class="btn btn-lg btn-block btn-outline-light" >Close</button>
+        </form>
+        </div>
+
         {% else %} 
-        <a class="buy-button btn btn-lg btn-block btn-outline-light" href="{% url 'account_signup' %}">Order Now</a>
+        <a class="buy-button btn btn-lg btn-block btn-outline-danger" href="{% url 'account_signup' %}">Order Now</a>
         {% endif %}
 
         <ul class="list-unstyled mt-3 mb-4">
@@ -80,23 +92,28 @@
 
       </div>
     </div>
-    <div class="card mb-4 shadow-sm container bg-warning">
+    <div class="card mb-4 shadow-sm container bg-dark" style="border: 1px solid #FFD700;">
       <div class="card-header">
-        <h4 class="my-0 font-weight-normal">Platinum</h4>
+        <h4 class="my-0 font-weight-normal text-warning">Platinum</h4>
       </div>
       <div class="card-body">
         <h1 class="card-title pricing-card-title">{{ price2 }}€</h1>
         <p class="card-title pricing-card-title">70% OFF</p>
-        <small class="d-block mb-3 text-white">Regular price: <s>{{ full_price2 }}€</s></small>
+        <small class="d-block mb-3 text-white">Regular price: <span class="text-danger"><s>{{ full_price2 }}€</s></span></small>
 
         {% if user.is_authenticated %}
         <form action="description_check_platinum/" id="form" method="post" name="form">
           {% csrf_token %}
-        <textarea name="searchTxt3" type="text" maxlength="512" id="searchTxt3" onkeyup="success3()" class="searchField" placeholder="Describe your logo..." value="searchTxt3"></textarea>
-        <button id="buy_platinum_button" type="submit" class="btn btn-lg btn-block btn-outline-light" value="product_platinum" disabled>Order Now</button>
-      </form>
+          <a class="btn btn-lg btn-block btn-outline-danger" onclick="showPopup3()">Order Now</a>
+          <div class="popup" id="myPopup3">
+        <textarea name="searchTxt3" type="text" maxlength="512" id="searchTxt3" onkeyup="success3()" class="form-control rounded bg-light" rows="5" cols="50" 
+        placeholder="Describe your logo..." value="searchTxt3" style="resize: none;"></textarea>
+        <button id="buy_platinum_button" type="submit" class="btn btn-lg btn-block btn-outline-danger mt-4" value="product_platinum" disabled>Order Now</button>
+        <button onclick="hidePopup3()" type="button" class="btn btn-lg btn-block btn-outline-light" >Close</button>
+        </form>
+        </div>
         {% else %} 
-        <a class="buy-button btn btn-lg btn-block btn-outline-light" href="{% url 'account_signup' %}">Order Now</a>
+        <a class="buy-button btn btn-lg btn-block btn-outline-danger" href="{% url 'account_signup' %}">Order Now</a>
         {% endif %}
 
         <ul class="list-unstyled mt-3 mb-4">

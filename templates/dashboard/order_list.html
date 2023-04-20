@@ -6,12 +6,14 @@
     <h3 class="my-4 border-bottom pb-1">Order List</h3>
     <div class="row">
         <div class="col-md-3">
-            {% include 'dashboard/user-sidebar.html' %}
+            <div class="list-group">
+                <a href="{% url 'orders' %}" class="btn btn-dark text-white text-left">Orders</a>
+                <a href="{% url 'account_logout' %}" class="btn btn-danger text-white text-left">Logout</a>
             </div>
         </div>
         <div class="col-md-auto">
             <div class="table-responsive">
-                <table class="table-bordered table">
+                <table class="table-bordered table text-white">
                     <thead>
                         <tr>
                             <th>Status</th>

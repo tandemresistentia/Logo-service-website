@@ -62,15 +62,3 @@ function success3() {
   };
 
 
-  document.getElementById('searchTxt').addEventListener("input", function(){
-    this.style.height = '0px';
-    this.style.height = this.scrollHeight + 'px';
-    });
-  document.getElementById('searchTxt2').addEventListener("input", function(){
-    this.style.height = '0px';
-    this.style.height = this.scrollHeight + 'px';
-    });
-    document.getElementById('searchTxt3').addEventListener("input", function(){
-      this.style.height = '0px';
-      this.style.height = this.scrollHeight + 'px';
-      });
