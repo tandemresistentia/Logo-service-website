@@ -265,7 +265,7 @@ def _handle_successful_payment(checkout_session):
     transaction_id = session["id"]
     send_mail(
         subject='Here is your product',
-        message='Thanks for your purchase',
+        message='Thanks for your purchase, to check the progress of your product go to https://www.troviders.com/orders/',
         recipient_list=[user_email],
         from_email=settings.EMAIL_HOST_USER
     )
@@ -281,8 +281,8 @@ def _handle_successful_payment(checkout_session):
         os.remove(json_data)
     else:
         send_mail(
-        subject='Activate the script!',
-        message='Activate the script!',
+        subject='More data needed',
+        message='More data needed',
         recipient_list='luismvg41@gmail.com',
         from_email=settings.EMAIL_HOST_USER
     )
