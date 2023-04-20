@@ -141,7 +141,7 @@ if ENVIRONMENT == 'production':
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'railway',
             'USER': 'postgres',
-            'PASSWORD': str(os.getenv('DATABASE_PASSWORD')),
+            'PASSWORD':str(os.getenv('DATABASE_PASSWORD')),
             'HOST': 'containers-us-west-41.railway.app',
             'PORT': '5939',
         }
