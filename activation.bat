@@ -1,0 +1,1 @@
+python test.py && git init && git add . && git commit -m fix && git push
